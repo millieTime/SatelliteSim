@@ -8,15 +8,11 @@
  *    or the location on the field.
  ************************************************************************/
 
-
 #pragma once
 
 #include <iostream> 
 #include <cmath>
-
-class TestPosition;
-class Acceleration;
-class Velocity;
+#include "vector2D.h"
 
 /*********************************************
  * Position
@@ -25,30 +21,33 @@ class Velocity;
 class Position
 {
 public:
-   friend TestPosition;
    
    // constructors
-   Position()            : x(0.0), y(0.0)  {}
+   Position() : x(0.0), y(0.0)  {}
    Position(double x, double y);
    Position(const Position & pt) : x(pt.x), y(pt.y) {}
    Position& operator = (const Position& pt);
 
    // getters
-   double getMetersX()       const { return x;                    }
-   double getMetersY()       const { return y;                    }
-   double getPixelsX()       const { return x / metersFromPixels; }
-   double getPixelsY()       const { return y / metersFromPixels; }
+   double getMetersX() const { return x;                    }
+   double getMetersY() const { return y;                    }
+   double getPixelsX() const { return x / metersFromPixels; }
+   double getPixelsY() const { return y / metersFromPixels; }
 
    // setters
-   void setMeters(double xMeters, double yMeters) {x = xMeters; y = yMeters; }
-   void setMetersX(double xMeters)       { x = xMeters;           }
-   void setMetersY(double yMeters)       { y = yMeters;           }
-   void setPixelsX(double xPixels)       { x = xPixels * metersFromPixels;          }
-   void setPixelsY(double yPixels)       { y = yPixels * metersFromPixels;          }
-   void addMetersX(double dxMeters)      { setMetersX(getMetersX() + dxMeters);     }
-   void addMetersY(double dyMeters)      { setMetersY(getMetersY() + dyMeters);     }
-   void addPixelsX(double dxPixels)      { setPixelsX(getPixelsX() + dxPixels);     }
-   void addPixelsY(double dyPixels)      { setPixelsY(getPixelsY() + dyPixels);     }
+   void setMeters(double xMeters, double yMeters) { x = xMeters; y = yMeters; }
+   void setMetersX(double xMeters)                { x = xMeters;              }
+   void setMetersY(double yMeters)                { y = yMeters;              }
+   void setPixelsX(double xPixels)                { x = xPixels * metersFromPixels;      }
+   void setPixelsY(double yPixels)                { y = yPixels * metersFromPixels;      }
+
+   // Modifiers
+   void addMetersX(double dxMeters) { setMetersX(getMetersX() + dxMeters); }
+   void addMetersY(double dyMeters) { setMetersY(getMetersY() + dyMeters); }
+   void addPixelsX(double dxPixels) { setPixelsX(getPixelsX() + dxPixels); }
+   void addPixelsY(double dyPixels) { setPixelsY(getPixelsY() + dyPixels); }
+   void applyVelocity(const Vector2D& vel, double time);
+   void applyVelAccel(const Vector2D& accel, const Vector2D& vel, double time);
 
    // deal with the ratio of meters to pixels
    void setZoom(double metersFromPixels)
@@ -87,5 +86,3 @@ struct PT
    double x;
    double y;
 };
-
-
