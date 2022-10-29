@@ -44,7 +44,7 @@ void Position::applyVelocity(const Vector2D& vel, double time)
  * Changes this position based on the given acceleration, velocity, and time
  * position += 0.5 * accel * time^2 + velocity * time
  *****************************************/
-void Position::applyVelAccel(const Vector2D& accel, const Vector2D& vel, double time)
+void Position::applyVelAccel(const Vector2D& vel, const Vector2D& accel, double time)
 {
    // Apply the velocity
    applyVelocity(vel, time);

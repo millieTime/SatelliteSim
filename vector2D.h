@@ -24,7 +24,7 @@ public:
 
    // Constructors
    Vector2D() : horizontalComponent(0.0), verticalComponent(0.0) {}
-   Vector2D(Vector2D const &vect);                                                
+   Vector2D(Vector2D const &vect);
    Vector2D(double hor, double vert) : horizontalComponent(hor), verticalComponent(vert) {}
    Vector2D(Angle angle, double magnitude);
    

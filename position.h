@@ -14,6 +14,8 @@
 #include <cmath>
 #include "vector2D.h"
 
+class TestPosition;
+
 /*********************************************
  * Position
  * A single position on the field in Meters  
@@ -21,7 +23,7 @@
 class Position
 {
 public:
-   
+   friend class TestPosition;
    // constructors
    Position() : x(0.0), y(0.0)  {}
    Position(double x, double y);
@@ -47,7 +49,7 @@ public:
    void addPixelsX(double dxPixels) { setPixelsX(getPixelsX() + dxPixels); }
    void addPixelsY(double dyPixels) { setPixelsY(getPixelsY() + dyPixels); }
    void applyVelocity(const Vector2D& vel, double time);
-   void applyVelAccel(const Vector2D& accel, const Vector2D& vel, double time);
+   void applyVelAccel(const Vector2D& vel, const Vector2D& accel, double time);
 
    // deal with the ratio of meters to pixels
    void setZoom(double metersFromPixels)

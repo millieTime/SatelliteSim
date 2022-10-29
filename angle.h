@@ -4,13 +4,11 @@
  * Author:
  *    Preston Millward & Emilio Regino
  * Summary:
- *    A single angle stored in degrees
+ *    A single angle stored in radians
  ************************************************************************/
 #pragma once
-#define _USE_MATH_DEFINES
 #include <cmath>
-#include "position.h"
-long double const PI = 3.14159265358979323846;        // For vs community users
+#include "constants.h"
 
 /***********************************************************
  * ANGLE
@@ -21,32 +19,37 @@ class Angle
 public:
    
    // Constructors
-   Angle() : angle(0.0f) {};
-   Angle(double angle) { setDegrees(convertToValid(angle)); }
-   Angle(double x, double y) { angle =  degreesFromXY(x, y); }
-   Angle(Position& p) { angle = degreesFromXY(p.getMetersX(), p.getMetersY()); }
+   Angle() : angle(0.0f) {}
+   Angle(double angle, bool isRadians)
+   {
+      if (isRadians)
+         setRadians(angle);
+      else
+         setDegrees(angle);
+   }
+   Angle(double x, double y) { setRadians(radiansFromXY(x, y)); }
    
    // Getters
-   virtual double getDegrees() const { return angle; };
-   virtual double getRadians() const { return radiansFromDegrees(angle); };
+   double getDegrees() const { return degreesFromRadians(angle); }
+   double getRadians() const { return angle; }
    
    // Setters
-   void setDegrees(double newAngleDegrees) { angle = convertToValid(newAngleDegrees); };
-   void setRadians(double newAngleRadians) { setDegrees(degreesFromRadians(newAngleRadians)); };
+   void setDegrees(double newAngleDegrees) { setRadians(radiansFromDegrees(newAngleDegrees)); };
+   void setRadians(double newAngleRadians) { angle = convertToValid(newAngleRadians); };
    
    // Updaters
-   void addDegrees(double amount) { setDegrees(convertToValid(angle + amount)); };
-   void addRadians(double amount) { addDegrees(degreesFromRadians(amount)); };
+   void addDegrees(double amount) { addRadians(radiansFromDegrees(amount)); };
+   void addRadians(double amount) { setRadians(angle + amount); };
    
 private:
-   double angle;   // The angle in degrees
+   double angle;   // The angle in radians
    
    // Converters
    double degreesFromRadians(double radians) const { return radians * 180 / PI; };
    double radiansFromDegrees(double degrees) const { return degrees * PI / 180; };
-   double degreesFromXY(double x, double y)  const { return degreesFromRadians(atan2(x, y)); }
+   double radiansFromXY(double x, double y) const  { return atan2(x, y); }
    
    // Validators
-   bool verifyNewAngle(double newAngle) const { return (newAngle <= 180.0 && newAngle >= -180.0); }
+   bool verifyNewAngle(double newAngle) const { return (newAngle <= PI && newAngle >= 0.0); }
    double convertToValid(double newAngle) const;
 };
