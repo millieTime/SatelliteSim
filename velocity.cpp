@@ -1,24 +1,24 @@
 /***********************************************************************
- * Header File:
- *    Velocity : Represents the velocity of an object in the artillery
- *    simulation.
+ * Source File:
+ *    Velocity : Represents a velocity in the orbiter simulation
  * Author:
- *    Emilio Regino
+ *    Preston Millward
  * Summary:
- *    Keeps track of a velocity, and provides an easy interface to convert to
- *    and from angle, magnitude, and components.
+ *    Tracks the components of a 2-dimensional velocity, and provides
+ *    a simple way to apply an acceleration over time.
  ************************************************************************/
 
-#include "velocity.h"     // for the angle class definition
+#include "velocity.h"
 
-/*****************************************************************
- * VELOCITY : APPLY ACCELERATION
- * Updates the velocity by applying the effect of the given
- * acceleration vector for the specified amount of time
- * velocity += acceleration * time
- ****************************************************************/
-void Velocity::applyAcceleration(const Vector2D &accel, double time)
+
+/*************************************************
+* VELOCITY
+* The constructor for the velocity class given
+* an angle and a magnitude.
+**************************************************/
+Velocity::Velocity(Angle angle, double magnitude)
 {
-   Vector2D delta = Vector2D(accel.getHorComponent() * time, accel.getVertComponent() * time);
-   addVector(delta);
+   // Calculate and set the horizontal and vertical components
+   setDX(magnitude * sin(angle.getRadians()));
+   setDY(magnitude * cos(angle.getRadians()));
 }
