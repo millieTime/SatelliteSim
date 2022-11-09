@@ -12,7 +12,8 @@
 
 #include <iostream> 
 #include <cmath>
-#include "vector2D.h"
+#include "velocity.h"
+#include "acceleration.h"
 
 class TestPosition;
 
@@ -48,8 +49,7 @@ public:
    void addMetersY(double dyMeters) { setMetersY(getMetersY() + dyMeters); }
    void addPixelsX(double dxPixels) { setPixelsX(getPixelsX() + dxPixels); }
    void addPixelsY(double dyPixels) { setPixelsY(getPixelsY() + dyPixels); }
-   void applyVelocity(const Vector2D& vel, double time);
-   void applyVelAccel(const Vector2D& vel, const Vector2D& accel, double time);
+   void applyVelAccel(const Velocity& vel, const Acceleration& accel, double time);
 
    // deal with the ratio of meters to pixels
    void setZoom(double metersFromPixels)

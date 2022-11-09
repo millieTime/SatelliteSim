@@ -1,30 +1,46 @@
 /***********************************************************************
  * Header File:
- *    Velocity : Represents a 2-dimensional velocity in the
- *    artillery simulation
+ *    Velocity : Represents a velocity in the orbiter simulation
  * Author:
  *    Preston Millward
  * Summary:
  *    Tracks the components of a 2-dimensional velocity, and provides
  *    a simple way to apply an acceleration over time.
- *    Inherits from the Vector2D class.
  ************************************************************************/
 
 #pragma once
 
-#include "vector2D.h"
+#include "acceleration.h"
+#include "angle.h"
 
-class Velocity : public Vector2D
+class Velocity
 {
 public:
 
    // Default constructor
-   Velocity() : Vector2D() {}
+   Velocity() : dx(0.0), dy(0.0) {}
    // Construct from components
-   Velocity(double x, double y) : Vector2D(x, y) { }
+   Velocity(double dx, double dy) : dx(dx), dy(dy) { }
    // Construct from angle and magnitude
-   Velocity(Angle angle, double mag) : Vector2D(angle, mag) {}
+   Velocity(Angle angle, double mag);
+
+   // Getters
+   double getDX() const { return dx; }
+   double getDY() const { return dy; }
+
+   // Setters
+   void setDX(double newDX) { dx = newDX; }
+   void setDY(double newDY) { dy = newDY; }
 
    // Apply an acceleration to this velocity for the specified amount of time
-   virtual void applyAcceleration(const Vector2D &accel, double time);
+   // velocity += acceleration * time
+   void applyAcceleration(const Acceleration& accel, double time)
+   {
+      setDX(dx + accel.getDDX() * time);
+      setDY(dy + accel.getDDY() * time);
+   };
+
+private:
+   double dx; // horizontal component
+   double dy; // vertical component
 };

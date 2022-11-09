@@ -29,28 +29,14 @@ Position& Position::operator = (const Position& pt)
 }
 
 /******************************************
- * POINT : APPLY VELOCITY
- * Changes this position based on the given velocity and time
- * position += velocity * time
- *****************************************/
-void Position::applyVelocity(const Vector2D& vel, double time)
-{
-   addMetersX(vel.getHorComponent() * time);
-   addMetersY(vel.getVertComponent() * time);
-}
-
-/******************************************
  * POINT : APPLY VELOCITY ACCELERATION
  * Changes this position based on the given acceleration, velocity, and time
  * position += 0.5 * accel * time^2 + velocity * time
  *****************************************/
-void Position::applyVelAccel(const Vector2D& vel, const Vector2D& accel, double time)
+void Position::applyVelAccel(const Velocity& vel, const Acceleration& accel, double time)
 {
-   // Apply the velocity
-   applyVelocity(vel, time);
-   // Apply the acceleration
-   addMetersX(0.5 * accel.getHorComponent() * time * time);
-   addMetersY(0.5 * accel.getVertComponent() * time * time);
+   addMetersX(vel.getDX() * time + 0.5 * accel.getDDX() * time * time);
+   addMetersY(vel.getDY() * time + 0.5 * accel.getDDY() * time * time);
 }
 
 /******************************************
