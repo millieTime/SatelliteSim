@@ -3,14 +3,12 @@
  *    Acceleration : Represents a 2-dimensional acceleration in the
  *    satellite simulation
  * Author:
- *    Preston Millward
+ *    Preston Millward and Gergo Medveczky
  * Summary:
  *    Tracks the components of a 2-dimensional acceleration, and provides
  *    a simple way to add two accelerations together
  ************************************************************************/
-
 #pragma once
-
 #include "angle.h"
 
 class Acceleration
