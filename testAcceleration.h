@@ -40,6 +40,7 @@ public:
    {
       testTwoComponentConstructor();
       testMagAngleConstructor();
+      testMagAngleConstructorNegativeMag();
       testAddAcceleration();
    }
 
@@ -70,6 +71,18 @@ public:
       assert(decimalCloseEnough(acc.ddy, 1.7320508075688773));
    }  // teardown
 
+   void testMagAngleConstructorNegativeMag()
+   {
+      // setup
+      AngleStub30 a = AngleStub30();
+      //exercise
+      Acceleration acc = Acceleration(a, -2.0);
+      //verify
+      assert(decimalCloseEnough(acc.ddx, -1.0));
+      assert(decimalCloseEnough(acc.ddy, -1.7320508075688773));
+      // teardown
+   }
+
    void testAddAcceleration()
    {
       // setup
@@ -85,6 +98,4 @@ public:
       assert(accA.ddx == 1.5);
       assert(accA.ddy == -2.0);
    }  // teardown
-
-
 };
