@@ -13,34 +13,38 @@
 #include "acceleration.h"
 #include "angle.h"
 
+class TestVelocity;
+
 class Velocity
 {
 public:
+
+   friend class TestVelocity;
 
    // Default constructor
    Velocity() : dx(0.0), dy(0.0) {}
    // Construct from components
    Velocity(double dx, double dy) : dx(dx), dy(dy) { }
    // Construct from angle and magnitude
-   Velocity(Angle angle, double mag);
+   Velocity(Angle& angle, double mag);
 
    // Getters
-   double getDX() const { return dx; }
-   double getDY() const { return dy; }
+   virtual double getDX() const { return dx; }
+   virtual double getDY() const { return dy; }
 
    // Setters
-   void setDX(double newDX) { dx = newDX; }
-   void setDY(double newDY) { dy = newDY; }
+   virtual void setDX(double newDX) { dx = newDX; }
+   virtual void setDY(double newDY) { dy = newDY; }
 
    // Apply an acceleration to this velocity for the specified amount of time
    // velocity += acceleration * time
-   void applyAcceleration(const Acceleration& accel, double time)
+   virtual void applyAcceleration(const Acceleration& accel, double time)
    {
       setDX(dx + accel.getDDX() * time);
       setDY(dy + accel.getDDY() * time);
    };
 
-private:
+protected:
    double dx; // horizontal component
    double dy; // vertical component
 };

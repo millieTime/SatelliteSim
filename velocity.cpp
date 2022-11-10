@@ -16,7 +16,7 @@
 * The constructor for the velocity class given
 * an angle and a magnitude.
 **************************************************/
-Velocity::Velocity(Angle angle, double magnitude)
+Velocity::Velocity(Angle& angle, double magnitude)
 {
    // Calculate and set the horizontal and vertical components
    setDX(magnitude * sin(angle.getRadians()));

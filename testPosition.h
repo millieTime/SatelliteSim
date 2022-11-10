@@ -12,9 +12,52 @@
 
 #include <iostream>
 #include "position.h"
+#include "accelerationDummy.h"
+#include "velocityDummy.h"
 #include <cassert>
 
 using namespace std;
+
+/******************************************************************
+* MOCK CLASSES FOR THESE TEST CASES
+*
+*     AccelerationZero     : a stub acceleration that represents zero acceleration.
+*     Acceleration2pt5and3 : a stub acceleration that represents an acceleration of (2.5, 3)
+*     VelocityZero         : a stub velocity that represents zero velocity
+*     VelocityNeg2and3pt5  : a stub velocity that represents velocity of (-2, 3.5)
+*******************************************************************/
+class AccelerationZero : public AccelerationDummy
+{
+public:
+   AccelerationZero() : AccelerationDummy() {};
+   virtual double getDDX() const { return 0.0; }
+   virtual double getDDY() const { return 0.0; }
+};
+
+class Acceleration2pt5and3 : public AccelerationDummy
+{
+public:
+   Acceleration2pt5and3() : AccelerationDummy() {};
+   virtual double getDDX() const { return 2.5; }
+   virtual double getDDY() const { return 3.0; }
+};
+
+class VelocityZero : public VelocityDummy
+{
+public:
+   VelocityZero() : VelocityDummy() {};
+   virtual double getDX() const { return 0.0; }
+   virtual double getDY() const { return 0.0; }
+};
+
+class VelocityNeg2and3pt5 : public VelocityDummy
+{
+public:
+   VelocityNeg2and3pt5() : VelocityDummy() {};
+   virtual double getDX() const { return -2.0; }
+   virtual double getDY() const { return 3.5; }
+};
+
 
 /*******************************
  * TEST Position
@@ -36,6 +79,11 @@ public:
       
       addPixels();
       addMeters();
+
+      applyNoVelocityNoAccel();
+      applyVelocityNoAccel();
+      applyAccelNoVelocity();
+      applyVelocityAccel();
    }
    
 private:
@@ -143,5 +191,66 @@ private:
       assert(pos.x == 4000.0);
       assert(pos.y == 7000.0);
    }  // teardown
+
+   void applyNoVelocityNoAccel() const
+   {
+      // setup
+      AccelerationZero a = AccelerationZero();
+      VelocityZero v = VelocityZero();
+      Position p = Position();
+      p.x = 7.0;
+      p.y = 4.0;
+      // exercise
+      p.applyVelAccel(v, a, 2.0);
+      // verify
+      assert(p.x == 7.0);
+      assert(p.y == 4.0);
+      // teardown
+   }
+   void applyVelocityNoAccel() const
+   {
+      // setup
+      AccelerationZero a = AccelerationZero();
+      VelocityNeg2and3pt5 v = VelocityNeg2and3pt5();
+      Position p = Position();
+      p.x = 7.0;
+      p.y = 4.0;
+      // exercise
+      p.applyVelAccel(v, a, 2.0);
+      // verify
+      assert(p.x == 3.0);
+      assert(p.y == 11.0);
+      // teardown
+   }
+   void applyAccelNoVelocity() const
+   {
+      // setup
+      Acceleration2pt5and3 a = Acceleration2pt5and3();
+      VelocityZero v = VelocityZero();
+      Position p = Position();
+      p.x = 7.0;
+      p.y = 4.0;
+      // exercise
+      p.applyVelAccel(v, a, 2.0);
+      // verify
+      assert(p.x == 12.0);
+      assert(p.y == 10.0);
+      // teardown
+   }
+   void applyVelocityAccel() const
+   {
+      // setup
+      Acceleration2pt5and3 a = Acceleration2pt5and3();
+      VelocityNeg2and3pt5 v = VelocityNeg2and3pt5();
+      Position p = Position();
+      p.x = 7.0;
+      p.y = 4.0;
+      // exercise
+      p.applyVelAccel(v, a, 2.0);
+      // verify
+      assert(p.x == 8.0);
+      assert(p.y == 17.0);
+      // teardown
+   }
 
 };

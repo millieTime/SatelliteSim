@@ -10,11 +10,26 @@
 
 #pragma once
 
-#include <iostream>
 #include <cassert>
 #include "acceleration.h"
+#include "angleDummy.h"
 
 using namespace std;
+
+/******************************************************************
+* MOCK CLASSES FOR THESE TEST CASES
+* 
+*     Angle Stub 30 : a Stub angle that points 30 degrees to the right of up
+*******************************************************************/
+
+class AngleStub30: public AngleDummy
+{
+public:
+   AngleStub30() { angle = 0.0; }
+
+   // Getter
+   virtual double getRadians() const { return 0.5235987755982989; }
+};
 
 class TestAcceleration
 {
@@ -25,6 +40,7 @@ public:
    {
       testTwoComponentConstructor();
       testMagAngleConstructor();
+      testAddAcceleration();
    }
 
    // Determines if the left floating point number is close enough to the right one.
@@ -39,34 +55,35 @@ public:
       // exercise
       Acceleration acc = Acceleration(5.0, 7.0);
       // verify
-      assert(acc.horizontalComponent == 5.0);
-      assert(acc.verticalComponent == 7.0);
+      assert(acc.ddx == 5.0);
+      assert(acc.ddy == 7.0);
    }  // teardown
 
    void testMagAngleConstructor()
    {
       // setup
+      AngleStub30 a = AngleStub30();
       // exercise
-      Acceleration acc = Acceleration(AngleMock(45), 2.0);
+      Acceleration acc = Acceleration(a, 2.0);
       // verify
-      assert(decimalCloseEnough(acc.horizontalComponent, 1.4142135623730950));
-      assert(decimalCloseEnough(acc.verticalComponent, 1.4142135623730950));
+      assert(decimalCloseEnough(acc.ddx, 1.0));
+      assert(decimalCloseEnough(acc.ddy, 1.7320508075688773));
    }  // teardown
 
    void testAddAcceleration()
    {
       // setup
       Acceleration accA = Acceleration();
-      accA.horizontalComponent = 2.0;
-      accA.verticalComponent = 3.0;
+      accA.ddx = 2.0;
+      accA.ddy = 3.0;
       Acceleration accB = Acceleration();
-      accB.horizontalComponent = -0.5;
-      accB.verticalComponent = -5.0;
+      accB.ddx = -0.5;
+      accB.ddy = -5.0;
       // exercise
       accA.addAcceleration(accB);
       // verify
-      assert(accA.horizontalComponent == 1.5);
-      assert(accA.verticalComponent == -2.0);
+      assert(accA.ddx == 1.5);
+      assert(accA.ddy == -2.0);
    }  // teardown
 
 

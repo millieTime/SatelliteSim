@@ -12,7 +12,7 @@
 
 /***********************************************************
  * ANGLE
- * The angle class
+ * The angle class. Tracks an angle measured in radians.
  ***********************************************************/
 class Angle
 {
@@ -20,33 +20,25 @@ public:
    
    // Constructors
    Angle() : angle(0.0f) {}
-   Angle(double angle, bool isRadians)
+   Angle(double angle)
    {
-      if (isRadians)
-         setRadians(angle);
-      else
-         setDegrees(angle);
+      setRadians(angle);
    }
    Angle(double x, double y) { setRadians(radiansFromXY(x, y)); }
    
-   // Getters
-   double getDegrees() const { return degreesFromRadians(angle); }
-   double getRadians() const { return angle; }
+   // Getter
+   virtual double getRadians() const { return angle; }
    
-   // Setters
-   void setDegrees(double newAngleDegrees) { setRadians(radiansFromDegrees(newAngleDegrees)); };
-   void setRadians(double newAngleRadians) { angle = convertToValid(newAngleRadians); };
+   // Setter
+   virtual void setRadians(double newAngleRadians) { angle = convertToValid(newAngleRadians); };
    
-   // Updaters
-   void addDegrees(double amount) { addRadians(radiansFromDegrees(amount)); };
-   void addRadians(double amount) { setRadians(angle + amount); };
+   // Updater
+   virtual void addRadians(double amount) { setRadians(angle + amount); };
    
-private:
+protected:
    double angle;   // The angle in radians
    
    // Converters
-   double degreesFromRadians(double radians) const { return radians * 180 / PI; };
-   double radiansFromDegrees(double degrees) const { return degrees * PI / 180; };
    double radiansFromXY(double x, double y) const  { return atan2(x, y); }
    
    // Validators

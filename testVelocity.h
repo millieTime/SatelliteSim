@@ -10,12 +10,35 @@
 
 #pragma once
 
-#include <iostream>
 #include <cassert>
 #include "velocity.h"
-#include "accelerationMock.h"
+#include "accelerationDummy.h"
+#include "angleDummy.h"
 
 using namespace std;
+
+/******************************************************************
+* MOCK CLASSES FOR THESE TEST CASES
+*
+*     Angle Stub 60 : a Stub angle that points 60 degrees to the right of up
+*     Acceleration2pt5andNeg3 : a stub acceleration that represents an acceleration of (2.5, -3)
+*******************************************************************/
+
+class AngleStub60 : public AngleDummy
+{
+public:
+   AngleStub60() { angle = 0.0; }
+
+   // Getter
+   virtual double getRadians() const { return 1.0471975511965977; }
+};
+class Acceleration2pt5andNeg3 : public AccelerationDummy
+{
+public:
+   Acceleration2pt5andNeg3() : AccelerationDummy() {};
+   virtual double getDDX() const { return 2.5; }
+   virtual double getDDY() const { return -3.0; }
+};
 
 class TestVelocity
 {
@@ -26,6 +49,7 @@ public:
    {
       testTwoComponentConstructor();
       testMagAngleConstructor();
+      testApplyAcceleration();
    }
 
    // Determines if the left floating point number is close enough to the right one.
@@ -40,43 +64,32 @@ public:
       // exercise
       Velocity vel = Velocity(5.0, 7.0);
       // verify
-      assert(vel.horizontalComponent == 5.0);
-      assert(vel.verticalComponent == 7.0);
+      assert(vel.dx == 5.0);
+      assert(vel.dy == 7.0);
    }  // teardown
 
    void testMagAngleConstructor()
    {
       // setup
+      AngleStub60 a = AngleStub60();
       // exercise
-      Velocity vel = Velocity(AngleMock(45), 2.0);
+      Velocity vel = Velocity(a, 2.0);
       // verify
-      assert(decimalCloseEnough(vel.horizontalComponent, 1.4142135623730950));
-      assert(decimalCloseEnough(vel.verticalComponent, 1.4142135623730950));
-   }  // teardown
-
-   void testGetSpeed()
-   {
-      // setup
-      Velocity vel = Velocity();
-      vel.horizontalComponent = 3.0;
-      vel.verticalComponent = 4.0;
-      // exercise
-      double speed = vel.getSpeed();
-      // verify
-      assert(speed == 5.0);
+      assert(decimalCloseEnough(vel.dx, 1.7320508075688773));
+      assert(decimalCloseEnough(vel.dy, 1.0));
    }  // teardown
 
    void testApplyAcceleration()
    {
       // setup
       Velocity vel = Velocity();
-      vel.horizontalComponent = -23.0;
-      vel.verticalComponent = 4.5;
-      AccelerationMock accel = AccelerationMock(-2, 5);
+      vel.dx = -23.0;
+      vel.dy = 4.5;
+      Acceleration2pt5andNeg3 a = Acceleration2pt5andNeg3();
       // exercise
-      vel.applyAcceleration(accel, 2);
+      vel.applyAcceleration(a, 3.0);
       // verify
-      assert(vel.horizontalComponent == -27.0);
-      assert(vel.verticalComponent == 14.5);
+      assert(vel.dx == -15.5);
+      assert(vel.dy == -4.5);
    }  // teardown
 };
