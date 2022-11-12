@@ -8,7 +8,7 @@
  *    contain assert(false)
  ************************************************************************/
 #pragma once
-#include "SpaceCollider.hpp"
+#include "SpaceCollider.h"
 #include <cassert>
 
 class SpaceColliderDummy : public SpaceCollider

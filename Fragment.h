@@ -10,15 +10,14 @@
 #include "SpaceCollider.h"
 #include <stdio.h>
 
+class TestSpaceCollider;
 class Fragment :public SpaceCollider
 {
 private:
+   double seconds;
 public:
+   friend class TestSpaceCollider;
     Fragment()
-    {
-        
-    }
-    Fragment(double x, double y)
     {
         
     }

@@ -5,4 +5,4 @@
 //  Created by Gergo Medveczky on 11/12/22.
 //
 
-#include "Sputnik.hpp"
+#include "Sputnik.h"

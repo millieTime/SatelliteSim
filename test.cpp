@@ -11,6 +11,7 @@
 #include "testPosition.h"
 #include "testAcceleration.h"
 #include "testVelocity.h"
+#include "TestSpaceCollider.h"
 
 /*****************************************************************
  * TEST RUNNER
@@ -21,4 +22,5 @@ void testRunner()
    TestPosition().run();
    TestVelocity().run();
    TestAcceleration().run();
+   TestSpaceCollider().run();
 }

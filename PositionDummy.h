@@ -13,6 +13,7 @@
 
 class PositionDummy : public Position
 {
+public:
    PositionDummy() { x = 0.0; y = 0.0; }
 
    // getters

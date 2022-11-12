@@ -44,6 +44,11 @@ public:
       setDY(dy + accel.getDDY() * time);
    };
 
+   friend bool operator==(const Velocity& lhs, const Velocity& rhs)
+   {
+      return lhs.dx == rhs.dx && lhs.dy == rhs.dy;
+   }
+
 protected:
    double dx; // horizontal component
    double dy; // vertical component

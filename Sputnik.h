@@ -18,10 +18,6 @@ public:
     {
         
     }
-    Sputnik(double x, double y)
-    {
-        
-    }
     Sputnik(Position p, Velocity v)
     {
         
@@ -29,6 +25,10 @@ public:
     void draw()
     {
         
+    }
+    double getRadius()
+    {
+        return 0.0;
     }
 };
 #endif /* Sputnik_hpp */

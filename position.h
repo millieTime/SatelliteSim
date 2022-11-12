@@ -58,6 +58,11 @@ public:
    }
    virtual double getZoom() const { return metersFromPixels; }
 
+   friend bool operator== (const Position& lhs, const Position& rhs)
+   {
+      return lhs.x == rhs.x && lhs.y == rhs.y;
+   }
+
 protected:
    double x;                 // horizontal position
    double y;                 // vertical position
