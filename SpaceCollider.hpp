@@ -14,35 +14,39 @@
 #include "acceleration.h"
 #include <stdio.h>
 #include "acceleration.h"
+using namespace std;
 
 class TestSpaceCollider;
+class LaunchedObject;
 
 class SpaceCollider
 {
 private:
-    friend class TestSpaceCollider;
-    Position pos;
-    Velocity vel;
-    Angle direction;
-    double rotationRate;
-    unsigned int radius;
-    list<LaunchedObject*> launchedPieces;
+   friend class TestSpaceCollider;
+   Position pos;
+   Velocity vel;
+   Angle direction;
+   double rotationRate;
+   unsigned int radius;
+   list<LaunchedObject*> launchedPieces;
     
     
     
     
 public:
-    SpaceCollider();
-    SpaceCollider(Position p, Velocity v);
-    SpaceCollider(SpaceCollider &colObj);
-    Position getCenter();
-    double getRadius();
-    bool collidesWith(SpaceCollider *otherColObj);
-    protected Acceleration getGravity();
-    void onCollision(list<SpaceCollider*> &collider);
-    void advance(double seconds);
-    virtual void draw() = 0;
-    bool isTimedOut();
+   SpaceCollider();
+   SpaceCollider(Position p, Velocity v);
+   SpaceCollider(SpaceCollider &colObj);
+   virtual Position getCenter();
+   virtual double getRadius();
+   virtual bool collidesWith(SpaceCollider *otherColObj);
     
+protected:
+   Acceleration getGravity();
+   void onCollision(list<SpaceCollider*> &collider);
+   void advance(double seconds);
+   virtual void draw() = 0;
+   bool isTimedOut();
+
 };
 #endif /* SpaceCollider_h */
