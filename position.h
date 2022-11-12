@@ -32,33 +32,33 @@ public:
    Position& operator = (const Position& pt);
 
    // getters
-   double getMetersX() const { return x;                    }
-   double getMetersY() const { return y;                    }
-   double getPixelsX() const { return x / metersFromPixels; }
-   double getPixelsY() const { return y / metersFromPixels; }
+   virtual double getMetersX() const { return x;                    }
+   virtual double getMetersY() const { return y;                    }
+   virtual double getPixelsX() const { return x / metersFromPixels; }
+   virtual double getPixelsY() const { return y / metersFromPixels; }
 
    // setters
-   void setMeters(double xMeters, double yMeters) { x = xMeters; y = yMeters; }
-   void setMetersX(double xMeters)                { x = xMeters;              }
-   void setMetersY(double yMeters)                { y = yMeters;              }
-   void setPixelsX(double xPixels)                { x = xPixels * metersFromPixels;      }
-   void setPixelsY(double yPixels)                { y = yPixels * metersFromPixels;      }
+   virtual void setMeters(double xMeters, double yMeters) { x = xMeters; y = yMeters; }
+   virtual void setMetersX(double xMeters)                { x = xMeters;              }
+   virtual void setMetersY(double yMeters)                { y = yMeters;              }
+   virtual void setPixelsX(double xPixels)                { x = xPixels * metersFromPixels;      }
+   virtual void setPixelsY(double yPixels)                { y = yPixels * metersFromPixels;      }
 
    // Modifiers
-   void addMetersX(double dxMeters) { setMetersX(getMetersX() + dxMeters); }
-   void addMetersY(double dyMeters) { setMetersY(getMetersY() + dyMeters); }
-   void addPixelsX(double dxPixels) { setPixelsX(getPixelsX() + dxPixels); }
-   void addPixelsY(double dyPixels) { setPixelsY(getPixelsY() + dyPixels); }
-   void applyVelAccel(const Velocity& vel, const Acceleration& accel, double time);
+   virtual void addMetersX(double dxMeters) { setMetersX(getMetersX() + dxMeters); }
+   virtual void addMetersY(double dyMeters) { setMetersY(getMetersY() + dyMeters); }
+   virtual void addPixelsX(double dxPixels) { setPixelsX(getPixelsX() + dxPixels); }
+   virtual void addPixelsY(double dyPixels) { setPixelsY(getPixelsY() + dyPixels); }
+   virtual void applyVelAccel(const Velocity& vel, const Acceleration& accel, double time);
 
    // deal with the ratio of meters to pixels
-   void setZoom(double metersFromPixels)
+   virtual void setZoom(double metersFromPixels)
    {
       this->metersFromPixels = metersFromPixels;
    }
-   double getZoom() const { return metersFromPixels; }
+   virtual double getZoom() const { return metersFromPixels; }
 
-private:
+protected:
    double x;                 // horizontal position
    double y;                 // vertical position
    static double metersFromPixels;

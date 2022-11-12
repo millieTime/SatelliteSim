@@ -15,7 +15,7 @@
  * The constructor for the acceleration class given
  * an angle and a magnitude.
  **************************************************/
-Acceleration::Acceleration(Angle angle, double magnitude)
+Acceleration::Acceleration(const Angle& angle, double magnitude)
 {
    // Calculate and set the horizontal and vertical components
    setDDX(magnitude * sin(angle.getRadians()));
