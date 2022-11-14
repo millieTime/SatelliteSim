@@ -1,12 +1,11 @@
 /***************************************************************************************
  * Header File:
- *    Angle : Represents an angle in the artillery simulation
- *    where 0 degrees is up.
+ *    Angle : Represents an angle in the satellite simulation
+ *    where 0 radians is up.
  * Author:
- *    Emilio Regino & Preston Millward
+ *    Preston Millward
  * Summary:
- *    Keeps track of an angle, and provides an easy interface to convert to
- *    and from degrees and radians
+ *    Keeps track of an angle in radians.
  ***************************************************************************************/
 
 #include "angle.h"     // for the angle class definition

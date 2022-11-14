@@ -2,7 +2,7 @@
 //  SpaceCollider.hpp
 //  Lab07
 //
-//  Created by Gergo Medveczky on 11/8/22.
+//  Created by Gergo Medveczky and Preston Millward on 11/8/22.
 //
 
 #ifndef SpaceCollider_h
@@ -34,7 +34,7 @@ protected:
 public:
    SpaceCollider() {};
    SpaceCollider(Position p, Velocity v) {};
-   Position getCenter() { return Position(); };
+   Position getCenter() { return pos; };
     virtual double getRadius() = 0;
     bool collidesWith(SpaceCollider* otherColObj) { return false; };
     void onCollision(list<SpaceCollider*>& collider) {};

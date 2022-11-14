@@ -1,8 +1,8 @@
 /***********************************************************************
  * Header File:
- *    Angle : Represents an angle in the artillery simulation
+ *    Angle : Represents an angle in the satellite simulation
  * Author:
- *    Preston Millward & Emilio Regino
+ *    Preston Millward
  * Summary:
  *    A single angle stored in radians
  ************************************************************************/
@@ -17,7 +17,7 @@
 class Angle
 {
 public:
-   
+
    // Constructors
    Angle() : angle(0.0f) {}
    Angle(double angle)
@@ -42,6 +42,5 @@ protected:
    double radiansFromXY(double x, double y) const  { return atan2(x, y); }
    
    // Validators
-   bool verifyNewAngle(double newAngle) const { return (newAngle <= PI && newAngle >= 0.0); }
    double convertToValid(double newAngle) const;
 };

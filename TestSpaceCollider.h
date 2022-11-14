@@ -1,12 +1,11 @@
 //
-//  TestOrbitSimulator.hpp
+//  TestOrbitSimulator.h
 //  Lab07
 //
-//  Created by Gergo Medveczky on 11/8/22.
+//  Created by Gergo Medveczky and Preston Millward on 11/8/22.
 //
 
-#ifndef TestOrbitSimulator_h
-#define TestOrbitSimulator_h
+#pragma once
 #include "sampleSpaceCollider.h"
 #include "launchedObjectDummy.h"
 #include "PositionDummy.h"
@@ -19,8 +18,8 @@
 /******************************************************************
 * MOCK CLASSES FOR THESE TEST CASES
 *
-*     Angle Stub 60 : a Stub angle that points 60 degrees to the right of up
-*     Acceleration2pt5andNeg3 : a stub acceleration that represents an acceleration of (2.5, -3)
+*     Position 200 and 200 : a Stub Position at (200, 200)
+*     PositionFarUp : a Stub Position at 20 times the earth's radius straight up
 *******************************************************************/
 class Position200And200 : public PositionDummy
 {
@@ -94,6 +93,8 @@ public:
     VelocitySpy() {
     dx = 0;
     dy = 0;
+    velocityCount = 0;
+    myTime = 0.0;
     }
     virtual void applyAcceleration(const Acceleration& accel, double time) { velocityCount++; myTime = time; }
     int getVelocityCount() { return velocityCount; }
@@ -109,6 +110,9 @@ public:
     PositionSpy() {
     x = 0;
     y = 0;
+    positionCount = 0;
+    myTime = 0.0;
+    myVel = Velocity();
     }
     virtual void applyVelAcceleration(const Velocity& vel, const Acceleration& accel, double time) { positionCount++; myVel = vel; myTime = time; }
     int getPositionCount() { return positionCount; }
@@ -132,14 +136,14 @@ public:
     {
         testDefaultConstructor();
         testConstructorWithPosVel();
-        testgetGenter();
         testCollidesWith();
+        testonCollision();
+        testgetGenter();
         testGetGravityUp();
         testGetGravityLeft();
         testGetGravityDown();
         testGetGravityRight();
         testGetGravityFar();
-        testonCollision();
         testAdvance();
     }
     
@@ -321,4 +325,3 @@ public:
         //teardown
     }
 };
-#endif /* TestOrbitSimulator_h */
