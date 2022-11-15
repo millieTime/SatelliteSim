@@ -20,12 +20,12 @@ public:
     {
         
     }
-    void draw(const ogstream& gout)
+    virtual void draw(const ogstream& gout)
     {
         
     }
-    double getRadius()
+    virtual unsigned int getRadius() const
     {
-        return 0.0;
+        return 1.0;
     }
 };

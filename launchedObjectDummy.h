@@ -18,5 +18,5 @@ public:
    LaunchedObjectDummy() : LaunchedObject() {}
    virtual void launch(Position p, Velocity v) {assert(false);}
    virtual void draw(const ogstream& gout) {}
-   virtual double getRadius() { return 0.0; }
+   virtual unsigned int getRadius() const { return 0.0; }
 };
