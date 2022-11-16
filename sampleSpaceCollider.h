@@ -16,7 +16,7 @@ public:
     {
         
     }
-    SampleSpaceCollider(Position p, Velocity v) : SpaceCollider(p, v)
+    SampleSpaceCollider(Position& p, Velocity& v) : SpaceCollider(p, v)
     {
         
     }

@@ -27,6 +27,8 @@ public:
    Velocity(double dx, double dy) : dx(dx), dy(dy) { }
    // Construct from angle and magnitude
    Velocity(Angle& angle, double mag);
+   // Construct from another Velocity
+   Velocity& operator=(const Velocity& otherVel);
 
    // Getters
    virtual double getDX() const { return dx; }

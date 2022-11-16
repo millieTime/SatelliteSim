@@ -25,6 +25,7 @@
 *     PositionEarthUp          : a Stub Position on the earth's surface straight Up
 *     PositionEarthDown        : a Stub Position on the earth's surface straight Down
 *     VelocityNeg17pt2And25pt3 : a Stub Velocity of (-17.2, 25.3)
+*     VelocityZeroAndZero      : a Stub Velocity of (0, 0)
 *     LaunchedObjectSpy        : a Spy LaunchedObject that tracks how many times it was launched()
 *                                and with what position and velocity it was launched.
 *     VelocitySpy              : a Spy Velocity that tracks how many times applyAcceleration was called
@@ -35,7 +36,7 @@
 class Position200And200 : public PositionDummy
 {
 public:
-   Position200And200() : PositionDummy() { x = 200.0; y = 200.0; };
+   Position200And200() : PositionDummy() {};
    virtual double getMetersX() const { return 200.0; }
    virtual double getMetersY() const { return 200.0; }
 };
@@ -43,7 +44,7 @@ public:
 class PositionFarUp : public PositionDummy
 {
 public:
-   PositionFarUp() : PositionDummy() { x = 0.0; y = EARTH_RADIUS * 20; };
+   PositionFarUp() : PositionDummy() {};
    virtual double getMetersX() const { return 0; }
    virtual double getMetersY() const { return EARTH_RADIUS *20; }
 };
@@ -51,7 +52,7 @@ public:
 class PositionEarthRight : public PositionDummy
 {
 public:
-   PositionEarthRight() : PositionDummy() { x = EARTH_RADIUS; y = 0.0; };
+   PositionEarthRight() : PositionDummy() {};
    virtual double getMetersX() const { return EARTH_RADIUS; }
    virtual double getMetersY() const { return 0.0; }
 };
@@ -59,7 +60,7 @@ public:
 class PositionEarthLeft : public PositionDummy
 {
 public:
-   PositionEarthLeft() : PositionDummy() { x = -EARTH_RADIUS; y = 0.9; };
+   PositionEarthLeft() : PositionDummy() {};
    virtual double getMetersX() const { return -EARTH_RADIUS; }
    virtual double getMetersY() const { return 0; }
 };
@@ -67,7 +68,7 @@ public:
 class PositionEarthUp : public PositionDummy
 {
 public:
-   PositionEarthUp() : PositionDummy() { x = 0; y = EARTH_RADIUS; };
+   PositionEarthUp() : PositionDummy() {};
    virtual double getMetersX() const { return 0; }
    virtual double getMetersY() const { return EARTH_RADIUS; }
 };
@@ -75,7 +76,7 @@ public:
 class PositionEarthDown : public PositionDummy
 {
 public:
-   PositionEarthDown() : PositionDummy() { x = 0; y = -EARTH_RADIUS; };
+   PositionEarthDown() : PositionDummy() {};
    virtual double getMetersX() const { return 0; }
    virtual double getMetersY() const { return -EARTH_RADIUS; }
 };
@@ -83,9 +84,17 @@ public:
 class VelocityNeg17pt2And25pt3 : public VelocityDummy
 {
 public:
-   VelocityNeg17pt2And25pt3() : VelocityDummy() { dx = -17.2; dy = 25.3; };
+   VelocityNeg17pt2And25pt3() : VelocityDummy() {};
    virtual double getDX() const { return -17.2; }
    virtual double getDY() const { return 25.3; }
+};
+
+class VelocityZeroAndZero : public VelocityDummy
+{
+public:
+   VelocityZeroAndZero() : VelocityDummy() {};
+   virtual double getDX() const { return 0.0; }
+   virtual double getDY() const { return 0.0; }
 };
 
 class LaunchedObjectSpy : public LaunchedObjectDummy
@@ -112,6 +121,8 @@ public:
    velocityCount = 0;
    myTime = 0.0;
    }
+   virtual double getDX() { return 0.0; }
+   virtual double getDY() { return 0.0; }
    virtual void applyAcceleration(const Acceleration& accel, double time) { velocityCount++; myTime = time; }
    int getVelocityCount() { return velocityCount; }
    double getMyTime() { return myTime; }
@@ -130,6 +141,8 @@ public:
    myTime = 0.0;
    myVel = Velocity();
    }
+   virtual double getMetersX() { return 0.0; }
+   virtual double getMetersY() { return 0.0; }
    virtual void applyVelAcceleration(const Velocity& vel, const Acceleration& accel, double time) { positionCount++; myVel = vel; myTime = time; }
    int getPositionCount() { return positionCount; }
    double getMyTime() { return myTime; }
@@ -229,7 +242,7 @@ public:
       // setup
       PositionEarthUp up = PositionEarthUp();
       PositionEarthDown down = PositionEarthDown();
-      VelocityDummy v = VelocityDummy();
+      VelocityZeroAndZero v = VelocityZeroAndZero();
       SampleSpaceCollider s1 = SampleSpaceCollider();
       s1.pos = up;
       s1.vel = v;
