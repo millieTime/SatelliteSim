@@ -20,11 +20,11 @@ public:
     {
         
     }
-    virtual void draw(const ogstream& gout)
+    virtual void draw() const
     {
         
     }
-    virtual unsigned int getRadius() const
+    virtual double getRadius() const
     {
         return 1.0;
     }

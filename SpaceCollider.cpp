@@ -15,6 +15,7 @@ SpaceCollider::SpaceCollider()
    direction = Angle(0);
    rotationRate = 0.0;
    launchedPieces = list<LaunchedObject*>();
+   destroyed = false;
 }
 
 SpaceCollider::SpaceCollider(Position& p, Velocity& v)
@@ -24,6 +25,7 @@ SpaceCollider::SpaceCollider(Position& p, Velocity& v)
    direction = Angle(0);
    rotationRate = 0.0;
    launchedPieces = list<LaunchedObject*>();
+   destroyed = false;
 }
 
 /*********************************************
@@ -33,7 +35,7 @@ SpaceCollider::SpaceCollider(Position& p, Velocity& v)
 *    Compares the distance between the two to the sum
 *    of their radii.
 **********************************************/
-bool SpaceCollider::collidesWith(const SpaceCollider* other) const
+bool SpaceCollider::isHitBy(const SpaceCollider* other) const
 {
    return computeDistance(pos, other->getCenter()) <= (getRadius() + other->getRadius()) * pos.getZoom();
 }

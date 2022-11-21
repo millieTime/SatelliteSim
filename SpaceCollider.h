@@ -38,23 +38,23 @@ public:
    Position getCenter() const { return pos; };
 
    // Each child class will have its own radius, so there's no point having a member variable.
-   virtual unsigned int getRadius() const = 0;
+   virtual double getRadius() const = 0;
 
    // Determines if this SpaceCollider is sharing space with another SpaceCollider.
-   bool collidesWith(const SpaceCollider* otherColObj) const;
+   virtual bool isHitBy(const SpaceCollider* otherColObj) const;
 
    // Handles the logic for when this SpaceCollider hits something. Removes this object from colliders,
    // and adds all of its LaunchedPieces to the colliders.
-   void onCollision(list<SpaceCollider*>& colliders);
+   virtual void onCollision(list<SpaceCollider*>& colliders);
 
    // Handles the logic for moving this SpaceCollider given an elapsed time.
-   void advance(double seconds);
+   virtual void advance(double seconds);
 
    // Each child class will have its own draw function.
-   virtual void draw(const ogstream& gout) = 0;
+   virtual void draw() const = 0;
 
    // Whether this SpaceCollider needs to be destroyed.
-   bool isDead() { return destroyed; };
+   virtual bool isDead() const { return destroyed; };
 
    // Is this SpaceCollider the same as some other Space Collider?
    friend bool operator ==(const SpaceCollider& lhs, const SpaceCollider& rhs)

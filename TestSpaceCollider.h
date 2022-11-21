@@ -176,8 +176,8 @@ public:
    {
       testDefaultConstructor();
       testConstructorWithPosVel();
-      testCollidesWithTrue();
-      testCollidesWithFalse();
+      testIsHitByTrue();
+      testIsHitByFalse();
       testonCollision();
       testgetGenter();
       testGetGravityUp();
@@ -233,7 +233,7 @@ public:
       //teardown
    }
     
-   void testCollidesWithTrue()
+   void testIsHitByTrue()
    {
       //setup
       Position200And200 p = Position200And200();
@@ -241,14 +241,14 @@ public:
       SampleSpaceCollider s = SampleSpaceCollider(p,v);
       SampleSpaceCollider f = SampleSpaceCollider(p,v);
       //exercise
-      bool isCollided = s.collidesWith(&f);
+      bool isCollided = s.isHitBy(&f);
       //verify
         
       assert(isCollided == true);
       //teardown
    }
 
-   void testCollidesWithFalse()
+   void testIsHitByFalse()
    {
       // setup
       PositionEarthUp up = PositionEarthUp();
@@ -262,7 +262,7 @@ public:
       s2.vel = v;
 
       // exercise
-      bool doesCollide = s1.collidesWith(&s2);
+      bool doesCollide = s1.isHitBy(&s2);
 
       // verify
       assert(!doesCollide);

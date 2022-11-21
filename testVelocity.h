@@ -51,6 +51,7 @@ public:
       testMagAngleConstructor();
       testApplyAcceleration();
       testApplyAccelerationNegativeTime();
+      testAddVelocity();
    }
 
    // Determines if the left floating point number is close enough to the right one.
@@ -101,10 +102,26 @@ public:
       vel.dx = -23.0;
       vel.dy = 4.5;
       Acceleration2pt5andNeg3 a = Acceleration2pt5andNeg3();
-      //exercise
+      // exercise
       vel.applyAcceleration(a, -3.0);
-      //verify
+      // verify
       assert(vel.dx == -30.5);
       assert(vel.dy == 13.5);
+   } // teardown
+
+   void testAddVelocity()
+   {
+      // setup
+      Velocity vel1 = Velocity();
+      vel1.dx = 2.0;
+      vel1.dy = -5.0;
+      Velocity vel2 = Velocity();
+      vel2.dx = -1.2;
+      vel2.dy = 2.7;
+      // exercise
+      vel1.addVel(vel2);
+      // verify
+      assert(vel1.dx == 0.8);
+      assert(vel1.dy == -2.3);
    } // teardown
 };

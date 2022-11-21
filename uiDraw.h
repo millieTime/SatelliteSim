@@ -46,6 +46,8 @@ private:
    Position pt;
 };
 
+Position rotate(const Position& origin, double x, double y, double rotation);
+
 /************************************************************************
  * DRAW FRAGMENT
  * Draw a fragment on the screen.

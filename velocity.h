@@ -46,6 +46,12 @@ public:
       setDY(dy + accel.getDDY() * time);
    };
 
+   virtual void addVel(const Velocity& otherVel)
+   {
+      setDX(dx + otherVel.getDX());
+      setDY(dy + otherVel.getDY());
+   }
+
    friend bool operator==(const Velocity& lhs, const Velocity& rhs)
    {
       return lhs.dx == rhs.dx && lhs.dy == rhs.dy;
