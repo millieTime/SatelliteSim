@@ -8,6 +8,7 @@
  ************************************************************************/
 
 #include "test.h"
+#include "testAngle.h"
 #include "testPosition.h"
 #include "testAcceleration.h"
 #include "testVelocity.h"
@@ -19,6 +20,7 @@
  ****************************************************************/
 void testRunner()
 {
+   TestAngle().run();
    TestPosition().run();
    TestVelocity().run();
    TestAcceleration().run();

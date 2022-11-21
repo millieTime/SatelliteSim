@@ -10,6 +10,8 @@
 #include <cmath>
 #include "constants.h"
 
+class TestAngle;
+
 /***********************************************************
  * ANGLE
  * The angle class. Tracks an angle measured in radians.
@@ -17,6 +19,7 @@
 class Angle
 {
 public:
+   friend class TestAngle;
 
    // Constructors
    Angle() : angle(0.0f) {}

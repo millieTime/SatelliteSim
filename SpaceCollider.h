@@ -26,8 +26,9 @@ protected:
    Velocity vel;
    Angle direction;
    double rotationRate;
+   bool destroyed;
    list<LaunchedObject*> launchedPieces;
-   Acceleration getGravity() { return Acceleration(); };
+   Acceleration getGravity();
     
 public:
    SpaceCollider();
@@ -40,7 +41,6 @@ public:
    virtual unsigned int getRadius() const = 0;
 
    // Determines if this SpaceCollider is sharing space with another SpaceCollider.
-   // Calculates the distance between the two centers, and compares it to the sum of radii.
    bool collidesWith(const SpaceCollider* otherColObj) const;
 
    // Handles the logic for when this SpaceCollider hits something. Removes this object from colliders,
@@ -48,13 +48,13 @@ public:
    void onCollision(list<SpaceCollider*>& colliders);
 
    // Handles the logic for moving this SpaceCollider given an elapsed time.
-   void advance(double seconds) {};
+   void advance(double seconds);
 
    // Each child class will have its own draw function.
    virtual void draw(const ogstream& gout) = 0;
 
-   // Whether this SpaceCollider is out of time. Only used by child classes that time out.
-   bool isTimedOut() { return false; };
+   // Whether this SpaceCollider needs to be destroyed.
+   bool isDead() { return destroyed; };
 
    // Is this SpaceCollider the same as some other Space Collider?
    friend bool operator ==(const SpaceCollider& lhs, const SpaceCollider& rhs)

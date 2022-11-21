@@ -22,13 +22,13 @@
 using namespace std;
 
 /*************************************************************************
- * Demo
- * Test structure to capture the LM that will move around the screen
+ * Game
+ * Plays the game of Satellite Simulator
  *************************************************************************/
-class Demo
+class Game
 {
 public:
-   Demo(Position ptUpperRight) :
+   Game(Position ptUpperRight) :
       ptUpperRight(ptUpperRight)
    {
 
@@ -36,31 +36,13 @@ public:
       ptSputnik.setMetersY(42164000.0);
       velSputnik = Velocity(-3100.0, 0.0);
       totalSeconds = 0;
-      /*
-      ptHubble.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-      ptHubble.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-
-      ptStarlink.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-      ptStarlink.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-
-      ptCrewDragon.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-      ptCrewDragon.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-
-      ptShip.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-      ptShip.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-
-      ptGPS.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-      ptGPS.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-
-      ptStar.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-      ptStar.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-      */
 
       angleSatellite = Angle(0.0, true);
       angleEarth = Angle(0.0, true);
       phaseStar = 0;
    }
 
+   // TODO: When checking if two things collide, make sure they both aren't dead.
    // move and rotate everything according to the amount of time that has passed.
    void advanceTime(double elapsedSeconds)
    {
@@ -169,7 +151,7 @@ void callBack(const Interface* pUI, void* p)
 {
    // the first step is to cast the void pointer into a game object. This
    // is the first step of every single callback function in OpenGL. 
-   Demo* pDemo = (Demo*)p;
+   Game* pGame = (Game*)p;
 
    /*
    //
@@ -190,13 +172,13 @@ void callBack(const Interface* pUI, void* p)
    // perform all the game logic
    //
    
-   pDemo->advanceTime(TIME_DILATION / FRAME_RATE);
+   pGame->advanceTime(TIME_DILATION / FRAME_RATE);
 
 
    //
    // draw everything
    //
-   pDemo->draw(pUI->isSpace());
+   pGame->draw(pUI->isSpace());
    
 }
 
@@ -226,14 +208,14 @@ int main(int argc, char** argv)
    ptUpperRight.setPixelsX(1000.0);
    ptUpperRight.setPixelsY(1000.0);
    Interface ui(0, NULL,
-      "Demo",   /* name on the window */
+      "Satellite Simulator",   /* name on the window */
       ptUpperRight);
 
    // Initialize the demo
-   Demo demo(ptUpperRight);
+   Game game(ptUpperRight);
 
    // set everything into action
-   ui.run(callBack, &demo);
+   ui.run(callBack, &game);
 
 
    return 0;
