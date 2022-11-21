@@ -23,8 +23,10 @@ void Ship::advance(double seconds)
    if (engineOn)
    {
       Acceleration engineAcceleration = Acceleration(direction, 30.0);
+      Velocity engineVel = Velocity(0, 0);
+      engineVel.applyAcceleration(engineAcceleration, seconds);
       vel.applyAcceleration(engineAcceleration, seconds);
-      pos.applyVelAccel(vel, engineAcceleration, seconds);
+      pos.applyVelAccel(engineVel, engineAcceleration, seconds);
    }
 }
 
@@ -35,7 +37,7 @@ void Ship::advance(double seconds)
  *****************************************/
 void Ship::fire(list<SpaceCollider*>& colliders) const
 {
-   Bullet b = Bullet(direction);
-   b.launch(pos, vel);
-   colliders.push_back(&b);
+   Bullet* b = new Bullet(direction);
+   b->launch(pos, vel);
+   colliders.push_back(b);
 }
