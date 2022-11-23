@@ -18,6 +18,7 @@ public:
    virtual void draw() const { drawShip(pos, direction.getRadians(), engineOn); }
    virtual double getRadius() const { return 10.0; }
    virtual void advance(double seconds);
+    
    void thrustLeft() { direction.addRadians(-0.1); }
    void thrustRight() { direction.addRadians(0.1); }
    void thrustForward(bool isOn) { engineOn = isOn; }

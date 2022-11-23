@@ -21,6 +21,11 @@
 #include "constants.h"    // for various constants
 #include "SpaceCollider.h" // for all the space junk 
 #include "ship.h"          // da ship
+#include "Sputnik.h"        // Sputnik
+#include "GPS.h"               //GPS
+#include "Hubble.h"             //Hubble
+#include "Dragon.h"             //Dragon
+#include "StarLink.h"           //Starlink
 using namespace std;
 
 /*************************************************************************
@@ -34,14 +39,98 @@ public:
       ptUpperRight(ptUpperRight)
    {
       colliders = list<SpaceCollider*>();
-
+      
+       // Sputnik
+       Position sputnikPos = Position();
+       sputnikPos.setMeters(-36515095.13, 21082000.0);
+       Velocity sputnikVel;
+       sputnikVel = Velocity(2050.0, 2684.68);
+       sputnik = Sputnik(sputnikPos, sputnikVel);
+       
+       //First GPS
+       Position gpsPos1 = Position();
+       gpsPos1.setMeters(0, 26560000.0);
+       Velocity gpsVel1;
+       gpsVel1 = Velocity(-3880.0, 0.0);
+       gps1 = GPS(gpsPos1, gpsVel1);
+       
+       //Second GPS
+       Position gpsPos2 = Position();
+       gpsPos2.setMeters(23001634.72, 13280000.0);
+       Velocity gpsVel2;
+       gpsVel2 = Velocity(-1940.00, 3360.18);
+       gps2 = GPS(gpsPos2, gpsVel2);
+       
+       //Third GPS
+       Position gpsPos3 = Position();
+       gpsPos3.setMeters(23001634.72, -13280000.0);
+       Velocity gpsVel3;
+       gpsVel3 = Velocity(1940.00, 3360.18);
+       gps3 = GPS(gpsPos3, gpsVel3);
+       
+       //Fourth GPS
+       Position gpsPos4 = Position();
+       gpsPos4.setMeters(0, -26560000.0);
+       Velocity gpsVel4;
+       gpsVel4 = Velocity(3880.0, 0.0);
+       gps4 = GPS(gpsPos4, gpsVel4);
+       
+       //Fifth GPS
+       Position gpsPos5 = Position();
+       gpsPos5.setMeters(-23001634.72, -13280000.0);
+       Velocity gpsVel5;
+       gpsVel5 = Velocity(1940.00, -3360.18);
+       gps5 = GPS(gpsPos5, gpsVel5);
+       
+       //Sixth GPS
+       Position gpsPos6 = Position();
+       gpsPos6.setMeters(-23001634.72, 13280000.0);
+       Velocity gpsVel6;
+       gpsVel6 = Velocity(-1940.00, -3360.18);
+       gps6 = GPS(gpsPos6, gpsVel6);
+       
+       
+       //Hubble
+       Position hubblePos = Position();
+       hubblePos.setMeters(0.0, -42164000.0);
+       Velocity hubbleVel;
+       hubbleVel = Velocity(3100.0, 0.0);
+       hubble = Hubble(hubblePos, hubbleVel);
+       
+       //Dragon
+       Position dragonPos = Position();
+       dragonPos.setMeters(0.0, 8000000.0);
+       Velocity dragonVel;
+       dragonVel = Velocity(-7900.0, 0.0);
+       dragon = Dragon(dragonPos, dragonVel);
+       
+       //Starlink
+       Position starlinkPos = Position();
+       starlinkPos.setMeters(0.0, -13020000.0);
+       Velocity starlinkVel;
+       starlinkVel = Velocity(5800.0, 0.0);
+       starlink = StarLink(starlinkPos, starlinkVel);
+       
       Position shipPos = Position();
       shipPos.setPixelsX(-450);
       shipPos.setPixelsY(450);
       Velocity shipVel = Velocity(0, -2000);
       player = Ship(shipPos, shipVel);
       colliders.push_back(&player);
-
+      colliders.push_back(&sputnik);
+       colliders.push_back(&hubble);
+       colliders.push_back(&dragon);
+       colliders.push_back(&starlink);
+       
+       colliders.push_back(&gps1);
+       colliders.push_back(&gps2);
+       colliders.push_back(&gps3);
+       colliders.push_back(&gps4);
+       colliders.push_back(&gps5);
+       colliders.push_back(&gps6);
+       
+       
+       
       totalSeconds = 0;
 
       angleEarth = Angle(0.0, true);
@@ -146,13 +235,25 @@ private:
 
    list<SpaceCollider*> colliders;
    Ship player;
-
-   Position ptStar;
+    
+    Sputnik sputnik;
+    Hubble hubble;
+    Dragon dragon;
+    StarLink starlink;
+    
+    GPS gps1;
+    GPS gps2;
+    GPS gps3;
+    GPS gps4;
+    GPS gps5;
+    GPS gps6;
+    
+    Position ptStar;
    Position ptUpperRight;
 
    unsigned char phaseStar;
    int totalSeconds;
-
+    
    Angle angleEarth;
 };
 

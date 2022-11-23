@@ -1,36 +1,36 @@
 //
-//  Sputnik.hpp
+//  GPS.hpp
 //  Lab07
 //
-//  Created by Gergo Medveczky on 11/12/22.
+//  Created by Gergo Medveczky on 11/23/22.
 //
 
-#ifndef Sputnik_h
-#define Sputnik_h
+#ifndef GPS_h
+#define GPS_h
 #include "SpaceCollider.h"
 #include <stdio.h>
-class Sputnik : public SpaceCollider
+class GPS : public SpaceCollider
 {
 private:
     
 public:
-    Sputnik(): SpaceCollider()
+    GPS(): SpaceCollider()
     {
         
     }
-    Sputnik(Position p, Velocity v)
+    GPS(Position p, Velocity v)
     {
         this->pos = p;
         this->vel = v;
     }
     virtual void draw() const
     {
-        drawSputnik(pos, direction.getRadians());
+        drawGPS(pos, direction.getRadians());
     }
     
     virtual double getRadius() const
     {
-        return 4.0;
+        return 12.0;
     }
     virtual void advance(double seconds)
     {
@@ -49,4 +49,4 @@ public:
     
     
 };
-#endif /* Sputnik_hpp */
+#endif /* GPS_h */
