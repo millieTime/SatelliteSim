@@ -27,10 +27,10 @@ public:
         this->pos = p;
         this->vel = v;
         
-        LaunchedObject* telescope = new HubbleTelescope(Angle(6.28319));
-        LaunchedObject* computer = new HubbleComputer(Angle(1.5));
-        LaunchedObject* leftPart = new HubbleLeft(Angle(3.141593));
-        LaunchedObject* rightPart = new HubbleRight(Angle(4.9));
+        LaunchedObject* telescope = new HubbleTelescope(Angle(PI / 2.0 ));
+        LaunchedObject* computer = new HubbleComputer(Angle(PI));
+        LaunchedObject* leftPart = new HubbleLeft(Angle((PI * 2.0)/3.0));
+        LaunchedObject* rightPart = new HubbleRight(Angle(2.0* PI));
         
         launchedPieces.push_back(telescope);
         launchedPieces.push_back(computer);

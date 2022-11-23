@@ -19,9 +19,8 @@ public:
     {
         
     }
-    HubbleLeft(Angle angle)
+    HubbleLeft(Angle angle): LaunchedObject(angle)
     {
-        direction = angle;
         LaunchedObject* fragment1 = new Fragment(6.28319);
         LaunchedObject* fragment2 = new Fragment(2);
         launchedPieces.push_back(fragment1);

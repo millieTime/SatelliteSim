@@ -21,11 +21,10 @@ public:
     {
         
     }
-    HubbleComputer(Angle angle)
+    HubbleComputer(Angle angle) : LaunchedObject(angle)
     {
-        direction = angle;
-        LaunchedObject* fragment1 = new Fragment(6.28319);
-        LaunchedObject* fragment2 = new Fragment(2);
+        LaunchedObject* fragment1 = new Fragment(PI);
+        LaunchedObject* fragment2 = new Fragment(2* PI);
         launchedPieces.push_back(fragment1);
         launchedPieces.push_back(fragment2);
     }
@@ -36,7 +35,7 @@ public:
     
     virtual double getRadius() const
     {
-        return 7;
+        return 3.5;
     }
     virtual void advance(double seconds)
     {
