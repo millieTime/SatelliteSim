@@ -16,7 +16,7 @@ public:
    Ship() : Ship(Position(0.0, 0.0), Velocity(0.0, 0.0)) {}
    Ship(Position pos, Velocity vel) : SpaceCollider(pos, vel) { engineOn = false; }
    virtual void draw() const { drawShip(pos, direction.getRadians(), engineOn); }
-   virtual double getRadius() const { return 10.0; }
+   virtual double getRadius() const { return 5.0; }
    virtual void advance(double seconds);
     
    void thrustLeft() { direction.addRadians(-0.1); }

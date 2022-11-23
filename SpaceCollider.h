@@ -14,6 +14,7 @@
 #include "uiDraw.h"
 #include <cassert>
 #include <list>
+#include <cmath>
 using namespace std;
 class TestSpaceCollider;
 class LaunchedObject;

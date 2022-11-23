@@ -9,20 +9,34 @@
 #define Hubble_h
 
 #include "SpaceCollider.h"
+#include "HubbleTelescope.h"
+#include "HubbleComputer.h"
+#include "HubbleLeft.h"
+#include "HubbleRight.h"
 #include <stdio.h>
 class Hubble : public SpaceCollider
 {
 private:
     
 public:
-    Hubble(): SpaceCollider()
+    Hubble(): Hubble(Position(0,0), Velocity(0,0))
     {
-        
     }
-    Hubble(Position p, Velocity v)
+    Hubble(Position p, Velocity v) : SpaceCollider(p,v)
     {
         this->pos = p;
         this->vel = v;
+        
+        LaunchedObject* telescope = new HubbleTelescope(Angle(6.28319));
+        LaunchedObject* computer = new HubbleComputer(Angle(1.5));
+        LaunchedObject* leftPart = new HubbleLeft(Angle(3.141593));
+        LaunchedObject* rightPart = new HubbleRight(Angle(4.9));
+        
+        launchedPieces.push_back(telescope);
+        launchedPieces.push_back(computer);
+        launchedPieces.push_back(leftPart);
+        launchedPieces.push_back(rightPart);
+    
     }
     virtual void draw() const
     {
@@ -33,21 +47,5 @@ public:
     {
         return 5.0;
     }
-    virtual void advance(double seconds)
-    {
-        SpaceCollider::advance(seconds);
-    }
-    virtual void onCollision(list<SpaceCollider*>& colliders)
-    {
-        SpaceCollider::onCollision(colliders);
-    }
-    virtual bool isHitBy(const SpaceCollider* otherColObj) const
-    {
-        return SpaceCollider::isHitBy(otherColObj);
-    }
-    virtual bool isDead() const { return SpaceCollider::isDead(); }
-    
-    
-    
 };
 #endif /* Hubble_h */
