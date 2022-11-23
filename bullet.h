@@ -17,7 +17,7 @@ public:
    Bullet(Angle launchDirection) : TimedObject(launchDirection) { secondsLeft = 2 * TIME_DILATION; }
    virtual double getRadius() const { return 0.5; };
    virtual void draw() const { drawProjectile(pos); };
-   virtual void launch(Position& p, Velocity& v)
+   virtual void launch(const Position& p, const Velocity& v)
    {
       // The bullet adds 9000m/s velocity in the direction the ship is facing.
       Velocity launchVel = Velocity(direction, 9000.0);

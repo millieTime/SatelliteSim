@@ -103,7 +103,7 @@ class LaunchedObjectSpy : public LaunchedObjectDummy
 {
 public:
    LaunchedObjectSpy() { launchCount = 0; myPosition = Position(); myVelocity = Velocity(); }
-   virtual void launch(Position p, Velocity v) { launchCount++; }
+   virtual void launch(const Position& p, const Velocity& v) { launchCount++; }
    int getLaunchCount() { return launchCount; }
    Position getLaunchPosition() { return myPosition; }
    Velocity getLaunchVelocity() { return myVelocity; }

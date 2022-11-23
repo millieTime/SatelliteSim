@@ -16,7 +16,7 @@ class LaunchedObjectDummy : public LaunchedObject
 {
 public:
    LaunchedObjectDummy() : LaunchedObject() {}
-   virtual void launch(Position p, Velocity v) {assert(false);}
+   virtual void launch(const Position& p, const Velocity& v) {assert(false);}
    virtual void draw() const {}
    virtual double getRadius() const { return 0.0; }
 };

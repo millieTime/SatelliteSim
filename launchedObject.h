@@ -16,7 +16,7 @@ class LaunchedObject : public SpaceCollider
 public:
    LaunchedObject() : SpaceCollider() {}
    LaunchedObject(Angle launchDirection) : SpaceCollider() { direction = launchDirection; }
-   virtual void launch(Position& p, Velocity& v)
+   virtual void launch(const Position& p, const Velocity& v)
    {
       // Fragments and parts shoot off in a random direction
       direction = Angle(random(0.0, 2.0 * PI));
