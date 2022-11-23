@@ -1,36 +1,37 @@
 //
-//  Sputnik.hpp
+//  Dragon.hpp
 //  Lab07
 //
-//  Created by Gergo Medveczky on 11/12/22.
+//  Created by Gergo Medveczky on 11/23/22.
 //
 
-#ifndef Sputnik_h
-#define Sputnik_h
+#ifndef Dragon_h
+#define Dragon_h
+
 #include "SpaceCollider.h"
 #include <stdio.h>
-class Sputnik : public SpaceCollider
+class Dragon : public SpaceCollider
 {
 private:
     
 public:
-    Sputnik(): SpaceCollider()
+    Dragon(): SpaceCollider()
     {
         
     }
-    Sputnik(Position p, Velocity v)
+    Dragon(Position p, Velocity v)
     {
         this->pos = p;
         this->vel = v;
     }
     virtual void draw() const
     {
-        drawSputnik(pos, direction.getRadians());
+        drawCrewDragon(pos, direction.getRadians());
     }
     
     virtual double getRadius() const
     {
-        return 4.0;
+        return 7.0;
     }
     virtual void advance(double seconds)
     {
@@ -49,4 +50,6 @@ public:
     
     
 };
-#endif /* Sputnik_hpp */
+
+
+#endif /* Dragon_h */

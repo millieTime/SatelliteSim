@@ -1,36 +1,37 @@
 //
-//  Sputnik.hpp
+//  StarLink.hpp
 //  Lab07
 //
-//  Created by Gergo Medveczky on 11/12/22.
+//  Created by Gergo Medveczky on 11/23/22.
 //
 
-#ifndef Sputnik_h
-#define Sputnik_h
+#ifndef StarLink_h
+#define StarLink_h
+
 #include "SpaceCollider.h"
 #include <stdio.h>
-class Sputnik : public SpaceCollider
+class StarLink : public SpaceCollider
 {
 private:
     
 public:
-    Sputnik(): SpaceCollider()
+    StarLink(): SpaceCollider()
     {
         
     }
-    Sputnik(Position p, Velocity v)
+    StarLink(Position p, Velocity v)
     {
         this->pos = p;
         this->vel = v;
     }
     virtual void draw() const
     {
-        drawSputnik(pos, direction.getRadians());
+        drawStarlink(pos, direction.getRadians());
     }
     
     virtual double getRadius() const
     {
-        return 4.0;
+        return 6.0;
     }
     virtual void advance(double seconds)
     {
@@ -49,4 +50,5 @@ public:
     
     
 };
-#endif /* Sputnik_hpp */
+
+#endif /* StarLink_h */

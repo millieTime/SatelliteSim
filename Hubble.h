@@ -1,36 +1,37 @@
 //
-//  Sputnik.hpp
+//  Hubble.hpp
 //  Lab07
 //
-//  Created by Gergo Medveczky on 11/12/22.
+//  Created by Gergo Medveczky on 11/23/22.
 //
 
-#ifndef Sputnik_h
-#define Sputnik_h
+#ifndef Hubble_h
+#define Hubble_h
+
 #include "SpaceCollider.h"
 #include <stdio.h>
-class Sputnik : public SpaceCollider
+class Hubble : public SpaceCollider
 {
 private:
     
 public:
-    Sputnik(): SpaceCollider()
+    Hubble(): SpaceCollider()
     {
         
     }
-    Sputnik(Position p, Velocity v)
+    Hubble(Position p, Velocity v)
     {
         this->pos = p;
         this->vel = v;
     }
     virtual void draw() const
     {
-        drawSputnik(pos, direction.getRadians());
+        drawHubble(pos, direction.getRadians());
     }
     
     virtual double getRadius() const
     {
-        return 4.0;
+        return 10.0;
     }
     virtual void advance(double seconds)
     {
@@ -49,4 +50,4 @@ public:
     
     
 };
-#endif /* Sputnik_hpp */
+#endif /* Hubble_h */
