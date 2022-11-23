@@ -30,7 +30,7 @@ public:
     
     virtual double getRadius() const
     {
-        return 4.0;
+        return 2.0;
     }
     virtual void advance(double seconds)
     {

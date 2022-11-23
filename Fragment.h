@@ -19,6 +19,6 @@ public:
       secondsLeft = random(2.0, 3.0) * TIME_DILATION;
       rotationRate = random(-PI, PI);
    }
-   virtual double getRadius() const { return 2.0; };
+   virtual double getRadius() const { return 1.0; };
    virtual void draw() const { drawFragment(pos, direction.getRadians()); };
 };
