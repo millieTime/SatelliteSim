@@ -23,8 +23,8 @@ Position::Position(double x, double y) : x(0.0), y(0.0)
  *****************************************/
 Position& Position::operator = (const Position& pt)
 {
-   x = pt.x;
-   y = pt.y;
+   x = pt.getMetersX();
+   y = pt.getMetersY();
    return *this;
 }
 

@@ -9,6 +9,7 @@
  ***************************************************************************************/
 
 #include "angle.h"     // for the angle class definition
+#include <cassert>
 
 /*************************************************
  * CONVERT TO VALID
@@ -17,15 +18,9 @@
  **************************************************/
 double Angle :: convertToValid(double newAngle) const
 {
-   // if the angle is greater than 2 * PI
-   while (newAngle >= 2 * PI)
-      // subtract 2 * PI to get the same direction but in the valid range
-      newAngle -= 2 * PI;
-
-   // if the angle is less than 0
-   while (newAngle < 0)
-      // add 2 * PI to get the same direction but in the valid range
-      newAngle = newAngle + 2 * PI;
+   // Figure out how many 2*PI's we need to subtract, and do it.
+   int multiplyer = floor(newAngle / (2.0 * PI));
+   newAngle -= multiplyer * 2.0 * PI;
 
    return newAngle;
 };

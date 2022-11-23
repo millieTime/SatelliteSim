@@ -22,3 +22,12 @@ Velocity::Velocity(Angle& angle, double magnitude)
    setDX(magnitude * sin(angle.getRadians()));
    setDY(magnitude * cos(angle.getRadians()));
 }
+
+/*************************************************
+* OPERATOR =
+* It's the assignment operator! Woo! Copy the member variables.
+**************************************************/
+Velocity& Velocity::operator=(const Velocity& otherVel)
+{
+   dx = otherVel.getDX(); dy = otherVel.getDY(); return *this;
+}

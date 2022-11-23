@@ -19,142 +19,140 @@
 #include "acceleration.h" // for ACCELERATION
 #include "velocity.h"     // for VELOCITY
 #include "constants.h"    // for various constants
+#include "SpaceCollider.h" // for all the space junk 
+#include "ship.h"          // da ship
 using namespace std;
 
 /*************************************************************************
- * Demo
- * Test structure to capture the LM that will move around the screen
+ * Game
+ * Plays the game of Satellite Simulator
  *************************************************************************/
-class Demo
+class Game
 {
 public:
-   Demo(Position ptUpperRight) :
+   Game(Position ptUpperRight) :
       ptUpperRight(ptUpperRight)
    {
+      colliders = list<SpaceCollider*>();
 
-      ptSputnik.setMetersX(0.0);
-      ptSputnik.setMetersY(42164000.0);
-      velSputnik = Velocity(-3100.0, 0.0);
+      Position shipPos = Position();
+      shipPos.setPixelsX(-450);
+      shipPos.setPixelsY(450);
+      Velocity shipVel = Velocity(0, -2000);
+      player = Ship(shipPos, shipVel);
+      colliders.push_back(&player);
+
       totalSeconds = 0;
-      /*
-      ptHubble.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-      ptHubble.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
 
-      ptStarlink.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-      ptStarlink.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-
-      ptCrewDragon.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-      ptCrewDragon.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-
-      ptShip.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-      ptShip.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-
-      ptGPS.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-      ptGPS.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-
-      ptStar.setPixelsX(ptUpperRight.getPixelsX() * random(-0.5, 0.5));
-      ptStar.setPixelsY(ptUpperRight.getPixelsY() * random(-0.5, 0.5));
-      */
-
-      angleSatellite = Angle(0.0, true);
       angleEarth = Angle(0.0, true);
       phaseStar = 0;
    }
 
-   // move and rotate everything according to the amount of time that has passed.
-   void advanceTime(double elapsedSeconds)
+   /************************************************************
+   * GAME : NEXT FRAME
+   *   Handles collisions, responds to inputs, moves the objects,
+   *   and draws the screen
+   *************************************************************/
+   void nextFrame(const Interface* pUI)
    {
-      totalSeconds += elapsedSeconds;
-      // rotate the earth and the satellite
-      double rotationAmount = -(2 * PI / SECONDS_PER_DAY) * elapsedSeconds;
-      angleEarth.addRadians(rotationAmount);
-      angleSatellite.addRadians(rotationAmount);
-      phaseStar++;
-
-      // move things
-      Acceleration gravity = gravityAt(ptSputnik);
-      velSputnik.applyAcceleration(gravity, elapsedSeconds);
-      ptSputnik.applyVelAccel(velSputnik, gravity, elapsedSeconds);
-   }
-
-   void draw(bool isSpace)
-   {
-      drawSputnik   (ptSputnik,    angleSatellite.getRadians());
-      Position pt;
-      /*
-      drawHubble(ptHubble, angleSatellite);
-      drawCrewDragon(ptCrewDragon, angleSatellite);
-      drawStarlink  (ptStarlink,   angleSatellite);
-      drawShip      (ptShip,       angleSatellite, isSpace);
-      drawGPS       (ptGPS,        angleSatellite);
-
-      // draw parts
-      pt.setPixelsX(ptCrewDragon.getPixelsX() + 20);
-      pt.setPixelsY(ptCrewDragon.getPixelsY() + 20);
-      drawCrewDragonRight(pt, angleSatellite); // notice only two parameters are set
-      pt.setPixelsX(ptHubble.getPixelsX() + 20);
-      pt.setPixelsY(ptHubble.getPixelsY() + 20);
-      drawHubbleLeft(pt, angleSatellite);      // notice only two parameters are set
-      pt.setPixelsX(ptGPS.getPixelsX() + 20);
-      pt.setPixelsY(ptGPS.getPixelsY() + 20);
-      drawGPSCenter(pt, angleSatellite);       // notice only two parameters are set
-      pt.setPixelsX(ptStarlink.getPixelsX() + 20);
-      pt.setPixelsY(ptStarlink.getPixelsY() + 20);
-      drawStarlinkArray(pt, angleSatellite);   // notice only two parameters are set
-
-      // draw fragments
-      pt.setPixelsX(ptSputnik.getPixelsX() + 20);
-      pt.setPixelsY(ptSputnik.getPixelsY() + 20);
-      drawFragment(pt, angleSatellite);
-      pt.setPixelsX(ptShip.getPixelsX() + 20);
-      pt.setPixelsY(ptShip.getPixelsY() + 20);
-      drawFragment(pt, angleSatellite);
-
-      // draw a single star
-      drawStar(ptStar, phaseStar);
-      */
-
-      // draw the earth
-      pt.setMeters(0.0, 0.0);
-      drawEarth(pt, angleEarth.getRadians());
+      handleInputs(pUI);
+      advance(TIME_DILATION / FRAME_RATE);
+      handleCollisions();
+      display();
    }
 
 private:
-   
-   // Creates the acceleration vector of gravity for a given position
-   Acceleration gravityAt(Position& p)
+
+   /**********************************************************
+   * GAME : HANDLE COLLISIONS
+   *   Loops through each item in colliders and checks whether that
+   *   item is sharing space with something else. If it is, tells both
+   *   items to do their collision logic. In a separate loop, it removes
+   *   dead items from the colliders list.
+   ***********************************************************/
+   void handleCollisions()
    {
-      // Get distance from point to surface of earth
-      double dist = computeDistance(Position(0.0, 0.0), p);
+      // Main loop through all colliders (make sure current item isn't dead)
+      for (auto cIter1 = colliders.begin(); cIter1 != colliders.end(); cIter1++)
+      {
+         SpaceCollider* collider1 = *cIter1;
+         if (!collider1->isDead())
+         {
+            // inner loop through all colliders (make sure current otherItem isn't dead)
+            for (auto cIter2 = next(cIter1, 1); cIter2 != colliders.end(); cIter2++)
+            {
+               SpaceCollider* collider2 = *cIter2;
+               // if they collide, do collision work.
+               if (!collider2->isDead() && collider1->isHitBy(collider2))
+               {
+                  collider1->onCollision(colliders);
+                  collider2->onCollision(colliders);
+               }
+            }
+         }
+      }
+      // Second loop through all colliders to remove dead ones.
+      auto cIter = colliders.begin();
+      while (cIter != colliders.end())
+      {
+         if ((*cIter)->isDead())
+              cIter = colliders.erase(cIter);
+         else
+            cIter++;
+      }
+   }
 
-      // Compute the force of gravity
-      double gravityForce = SEA_GRAVITY * pow((EARTH_RADIUS / dist), 2);
+   void handleInputs(const Interface* pUI)
+   {
+      player.thrustForward(pUI->isDown());
+      if (pUI->isLeft())
+         player.thrustLeft();
+      if (pUI->isRight())
+         player.thrustRight();
+      if (pUI->isSpace())
+         player.fire(colliders);
+   }
 
-      // Get the angle of gravity
-      Angle gravityAngle = Angle(-p.getMetersX(), -p.getMetersY());
+   // TODO: When checking if two things collide, make sure they both aren't dead.
+   // move and rotate everything according to the amount of time that has passed.
+   void advance(double elapsedSeconds)
+   {
+      totalSeconds += elapsedSeconds;
+      // rotate the earth, and advance the star phase
+      double rotationAmount = -(2 * PI / SECONDS_PER_DAY) * elapsedSeconds;
+      angleEarth.addRadians(rotationAmount);
+      phaseStar++;
 
-      // Return the nice package deal
-      return Acceleration(gravityAngle, gravityForce);
-   };
+      // move things
+      for (SpaceCollider* collider : colliders)
+      {
+         collider->advance(elapsedSeconds);
+      }
+   }
 
+   void display()
+   {
+      for(SpaceCollider* collider : colliders)
+      {
+         collider->draw();
+      }
+      
+      drawStar(ptStar, phaseStar);
 
+      // draw the earth
+      Position pt = Position(0.0, 0.0);
+      drawEarth(pt, angleEarth.getRadians());
+   }
 
+   list<SpaceCollider*> colliders;
+   Ship player;
 
-   Position ptSputnik;
-   Position ptHubble;
-   Position ptStarlink;
-   Position ptCrewDragon;
-   Position ptShip;
-   Position ptGPS;
    Position ptStar;
    Position ptUpperRight;
-   
-   Velocity velSputnik;
 
    unsigned char phaseStar;
    int totalSeconds;
 
-   Angle angleSatellite;
    Angle angleEarth;
 };
 
@@ -169,35 +167,8 @@ void callBack(const Interface* pUI, void* p)
 {
    // the first step is to cast the void pointer into a game object. This
    // is the first step of every single callback function in OpenGL. 
-   Demo* pDemo = (Demo*)p;
-
-   /*
-   //
-   // accept input
-   //
-   // move by a little
-   if (pUI->isUp())
-      pDemo->ptShip.addPixelsY(1.0);
-   if (pUI->isDown())
-      pDemo->ptShip.addPixelsY(-1.0);
-   if (pUI->isLeft())
-      pDemo->ptShip.addPixelsX(-1.0);
-   if (pUI->isRight())
-      pDemo->ptShip.addPixelsX(1.0);
-   */
-
-   //
-   // perform all the game logic
-   //
-   
-   pDemo->advanceTime(TIME_DILATION / FRAME_RATE);
-
-
-   //
-   // draw everything
-   //
-   pDemo->draw(pUI->isSpace());
-   
+   Game* pGame = (Game*)p;
+   pGame->nextFrame(pUI);
 }
 
 double Position::metersFromPixels = 40.0; // What does this do? We use setZoom below. Doesn't that override it?
@@ -217,7 +188,6 @@ int main(int argc, char** argv)
 #endif // !_WIN32
 {
    testRunner();
-   return 0;
 
 
    // Initialize OpenGL
@@ -226,14 +196,14 @@ int main(int argc, char** argv)
    ptUpperRight.setPixelsX(1000.0);
    ptUpperRight.setPixelsY(1000.0);
    Interface ui(0, NULL,
-      "Demo",   /* name on the window */
+      "Satellite Simulator",   /* name on the window */
       ptUpperRight);
 
    // Initialize the demo
-   Demo demo(ptUpperRight);
+   Game game(ptUpperRight);
 
    // set everything into action
-   ui.run(callBack, &demo);
+   ui.run(callBack, &game);
 
 
    return 0;

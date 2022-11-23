@@ -28,4 +28,5 @@ public:
 
    // Apply an acceleration to this velocity for the specified amount of time
    virtual void applyAcceleration(const Acceleration& accel, double time) { assert(false); }
+   virtual void addVel(const Velocity& otherVel) { assert(false); }
 };

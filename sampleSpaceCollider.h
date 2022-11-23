@@ -16,16 +16,16 @@ public:
     {
         
     }
-    SampleSpaceCollider(Position p, Velocity v) : SpaceCollider(p, v)
+    SampleSpaceCollider(Position& p, Velocity& v) : SpaceCollider(p, v)
     {
         
     }
-    void draw(const ogstream& gout)
+    virtual void draw() const
     {
         
     }
-    double getRadius()
+    virtual double getRadius() const
     {
-        return 0.0;
+        return 1.0;
     }
 };
