@@ -30,21 +30,9 @@ public:
     
     virtual double getRadius() const
     {
-        return 4.0;
+        return 2.0;
     }
-    virtual void advance(double seconds)
-    {
-        SpaceCollider::advance(seconds);
-    }
-    virtual void onCollision(list<SpaceCollider*>& colliders)
-    {
-        SpaceCollider::onCollision(colliders);
-    }
-    virtual bool isHitBy(const SpaceCollider* otherColObj) const
-    {
-        return SpaceCollider::isHitBy(otherColObj);
-    }
-    virtual bool isDead() const { return SpaceCollider::isDead(); }
+    
     
     
     

@@ -19,7 +19,7 @@ public:
    virtual void launch(const Position& p, const Velocity& v)
    {
       // Fragments and parts shoot off in a random direction
-      direction = Angle(random(0.0, 2.0 * PI));
+      //direction = Angle(random(0.0, 2.0 * PI));
 
       // They add anywhere between 5K and 9K m/s in that direction
       Velocity launchVel = Velocity(direction, random(5000.0, 9000.0));
