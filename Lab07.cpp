@@ -38,11 +38,11 @@ public:
    Game(Position ptUpperRight) :
       ptUpperRight(ptUpperRight)
    {
-      /*for (int i = 0; i < NUM_STARS; i++)
+      for (int i = 0; i < NUM_STARS; i++)
       {
          Star star = { Position(random(-450, 450) * ptUpperRight.getZoom(), random(-450, 450) * ptUpperRight.getZoom()), unsigned char(random(0, 255))};
          stars[i] = star;
-      }*/
+      }
 
       colliders = list<SpaceCollider*>();
       
