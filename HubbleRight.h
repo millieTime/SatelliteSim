@@ -19,7 +19,7 @@ public:
     {
         
     }
-    HubbleRight(Angle angle): LaunchedObject(angle)
+    HubbleRight(Angle angle) : LaunchedObject(angle)
     {
         LaunchedObject* fragment1 = new Fragment(6.28319);
         LaunchedObject* fragment2 = new Fragment(2);
@@ -33,7 +33,7 @@ public:
     
     virtual double getRadius() const
     {
-        return 8;
+        return 4.0;
     }
     virtual void advance(double seconds)
     {

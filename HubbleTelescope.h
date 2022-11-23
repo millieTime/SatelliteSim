@@ -22,11 +22,10 @@ public:
     }
     HubbleTelescope(Angle angle) : LaunchedObject(angle)
     {
-        
-        
         LaunchedObject* fragment1 = new Fragment(PI / 2.0);
         LaunchedObject* fragment2 = new Fragment(2.0* PI);
         LaunchedObject* fragment3 = new Fragment(PI);
+        
         launchedPieces.push_back(fragment1);
         launchedPieces.push_back(fragment2);
         launchedPieces.push_back(fragment3);
@@ -38,24 +37,8 @@ public:
     
     virtual double getRadius() const
     {
-        return 4;
+        return 5.0;
     }
-    virtual void advance(double seconds)
-    {
-        SpaceCollider::advance(seconds);
-    }
-    virtual void onCollision(list<SpaceCollider*>& colliders)
-    {
-        SpaceCollider::onCollision(colliders);
-    }
-    virtual bool isHitBy(const SpaceCollider* otherColObj) const
-    {
-        return SpaceCollider::isHitBy(otherColObj);
-    }
-    virtual bool isDead() const { return SpaceCollider::isDead(); }
-    
-    
-    
 };
 
 #endif /* HubbleTelescope_h */
