@@ -9,6 +9,7 @@
 #define Sputnik_h
 #include "SpaceCollider.h"
 #include <stdio.h>
+# include "Fragment.h"
 class Sputnik : public SpaceCollider
 {
 private:
@@ -22,6 +23,14 @@ public:
     {
         this->pos = p;
         this->vel = v;
+        LaunchedObject* fragment1 = new Fragment(PI / 2.0 );
+        LaunchedObject* fragment2 = new Fragment(PI);
+        LaunchedObject* fragment3 = new Fragment((PI * 2.0)/3.0);
+        LaunchedObject* fragment4 = new Fragment(2.0* PI);
+        launchedPieces.push_back(fragment1);
+        launchedPieces.push_back(fragment2);
+        launchedPieces.push_back(fragment3);
+        launchedPieces.push_back(fragment4);
     }
     virtual void draw() const
     {

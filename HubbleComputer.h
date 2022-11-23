@@ -23,8 +23,9 @@ public:
     }
     HubbleComputer(Angle angle) : LaunchedObject(angle)
     {
-        LaunchedObject* fragment1 = new Fragment(6.28319);
-        LaunchedObject* fragment2 = new Fragment(2);
+        LaunchedObject* fragment1 = new Fragment(PI);
+        LaunchedObject* fragment2 = new Fragment(2* PI);
+
         launchedPieces.push_back(fragment1);
         launchedPieces.push_back(fragment2);
     }

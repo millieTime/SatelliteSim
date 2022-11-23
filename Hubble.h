@@ -23,11 +23,10 @@ public:
     {
     }
     Hubble(Position p, Velocity v) : SpaceCollider(p,v)
-    {        
-        LaunchedObject* telescope = new HubbleTelescope(Angle(0));
-        LaunchedObject* computer = new HubbleComputer(Angle(PI / 2.0));
-        LaunchedObject* leftPart = new HubbleLeft(Angle(PI));
-        LaunchedObject* rightPart = new HubbleRight(Angle(PI * 3.0 / 2.0));
+        LaunchedObject* telescope = new HubbleTelescope(Angle(PI / 2.0 ));
+        LaunchedObject* computer = new HubbleComputer(Angle(PI));
+        LaunchedObject* leftPart = new HubbleLeft(Angle((PI * 2.0)/3.0));
+        LaunchedObject* rightPart = new HubbleRight(Angle(2.0* PI));
         
         launchedPieces.push_back(telescope);
         launchedPieces.push_back(computer);
