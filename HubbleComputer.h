@@ -21,9 +21,8 @@ public:
     {
         
     }
-    HubbleComputer(Angle angle)
+    HubbleComputer(Angle angle) : LaunchedObject(angle)
     {
-        direction = angle;
         LaunchedObject* fragment1 = new Fragment(6.28319);
         LaunchedObject* fragment2 = new Fragment(2);
         launchedPieces.push_back(fragment1);
@@ -36,24 +35,8 @@ public:
     
     virtual double getRadius() const
     {
-        return 7;
+        return 3.5;
     }
-    virtual void advance(double seconds)
-    {
-        SpaceCollider::advance(seconds);
-    }
-    virtual void onCollision(list<SpaceCollider*>& colliders)
-    {
-        SpaceCollider::onCollision(colliders);
-    }
-    virtual bool isHitBy(const SpaceCollider* otherColObj) const
-    {
-        return SpaceCollider::isHitBy(otherColObj);
-    }
-    virtual bool isDead() const { return SpaceCollider::isDead(); }
-    
-    
-    
 };
 
 #endif /* HubbleComputer_h */

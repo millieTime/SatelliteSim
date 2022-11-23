@@ -40,7 +40,7 @@ public:
    {
       for (int i = 0; i < NUM_STARS; i++)
       {
-         Star star = { Position(random(-450, 450), random(-450, 450)), random(0, 255)};
+         Star star = { Position(random(-450, 450) * ptUpperRight.getZoom(), random(-450, 450) * ptUpperRight.getZoom()), unsigned char(random(0, 255))};
          stars[i] = star;
       }
 
@@ -238,17 +238,17 @@ private:
          collider->advance(elapsedSeconds);
 
       // phase up the stars
-      for (Star star : stars)
-         star.phase++;
+      for (int i = 0; i < NUM_STARS; i++)
+         stars[i].phase++;
    }
 
    void display()
    {
-      for(SpaceCollider* collider : colliders)
-         collider->draw();
-      
       for (int i = 0; i < NUM_STARS; i++)
          drawStar(stars[i].pos, stars[i].phase);
+      
+      for(SpaceCollider* collider : colliders)
+         collider->draw();
 
       // draw the earth
       Position pt = Position(0.0, 0.0);
