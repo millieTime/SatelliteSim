@@ -1,28 +1,27 @@
-//
-//  StarLink.hpp
-//  Lab07
-//
-//  Created by Gergo Medveczky on 11/23/22.
-//
+/***********************************************************************
+ * Header File:
+ *    Starlink: A satellite that looks like a vacuum cleaner
+ * Author:
+ *    Gergo Medveczky and Preston Millward
+ * Summary:
+ *    Is a Space Collider, and breaks into 2 pieces.
+ ************************************************************************/
 
-#ifndef StarLink_h
-#define StarLink_h
-
+#pragma once
 #include "SpaceCollider.h"
-#include <stdio.h>
+#include "starlinkArray.h"
+#include "starlinkBody.h"
+
 class StarLink : public SpaceCollider
 {
-private:
-    
 public:
-    StarLink(): SpaceCollider()
+    StarLink(): StarLink(Position(0.0, 0.0), Velocity(0.0, 0.0)) { }
+    StarLink(Position p, Velocity v) : SpaceCollider(p, v)
     {
-        
-    }
-    StarLink(Position p, Velocity v)
-    {
-        this->pos = p;
-        this->vel = v;
+       LaunchedObject* SLArray = new StarlinkArray(Angle(0.0));
+       LaunchedObject* SLBody = new StarlinkBody(Angle(PI));
+       launchedPieces.push_back(SLArray);
+       launchedPieces.push_back(SLBody);
     }
     virtual void draw() const
     {
@@ -33,10 +32,4 @@ public:
     {
         return 3.0;
     }
-    
-    
-    
-    
 };
-
-#endif /* StarLink_h */

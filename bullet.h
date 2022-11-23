@@ -4,7 +4,7 @@
  * Author:
  *    Preston Millward
  * Summary:
- *    Is a Space Collider, and is launched from the player ship.
+ *    Is a Timed Object, and is launched from the player ship.
  ************************************************************************/
 
 #pragma once
@@ -24,8 +24,7 @@ public:
       launchVel.addVel(v);
 
       // The bullet spawns in 19 pixels in front of the ship.
-      Angle directionOfTravel = Angle(launchVel.getDX(), launchVel.getDY());
-      pos = rotate(p, 0.0, 19.0, directionOfTravel.getRadians());
+      pos = rotate(p, 0.0, 19.0, direction.getRadians());
       vel = launchVel;
    }
 };

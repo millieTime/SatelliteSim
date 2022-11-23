@@ -21,8 +21,6 @@ private:
 public:
     Hubble(): Hubble(Position(0,0), Velocity(0,0))
     {
-        
-        
     }
     Hubble(Position p, Velocity v) : SpaceCollider(p,v)
     {
@@ -33,7 +31,6 @@ public:
         LaunchedObject* computer = new HubbleComputer(Angle(1.5));
         LaunchedObject* leftPart = new HubbleLeft(Angle(3.141593));
         LaunchedObject* rightPart = new HubbleRight(Angle(4.9));
-        
         
         launchedPieces.push_back(telescope);
         launchedPieces.push_back(computer);
@@ -48,11 +45,7 @@ public:
     
     virtual double getRadius() const
     {
-        return 10;
+        return 5.0;
     }
-    
-    
-    
-    
 };
 #endif /* Hubble_h */

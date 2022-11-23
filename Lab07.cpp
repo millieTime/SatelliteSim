@@ -11,21 +11,21 @@
  *      ??
  *****************************************************************/
 
-#include <cassert>      // for ASSERT
-#include "test.h"       // for TEST
-#include "uiInteract.h" // for INTERFACE
-#include "uiDraw.h"     // for RANDOM and DRAW*
+#include <cassert>         // for ASSERT
+#include "test.h"          // for TEST
+#include "uiInteract.h"    // for INTERFACE
+#include "uiDraw.h"        // for RANDOM and DRAW*
 #include "position.h"      // for POINT
-#include "acceleration.h" // for ACCELERATION
-#include "velocity.h"     // for VELOCITY
-#include "constants.h"    // for various constants
+#include "acceleration.h"  // for ACCELERATION
+#include "velocity.h"      // for VELOCITY
+#include "constants.h"     // for various constants
 #include "SpaceCollider.h" // for all the space junk 
 #include "ship.h"          // da ship
-#include "Sputnik.h"        // Sputnik
-#include "GPS.h"               //GPS
-#include "Hubble.h"             //Hubble
-#include "Dragon.h"             //Dragon
-#include "StarLink.h"           //Starlink
+#include "Sputnik.h"       // Sputnik
+#include "GPS.h"           //GPS
+#include "Hubble.h"        //Hubble
+#include "Dragon.h"        //Dragon
+#include "StarLink.h"      //Starlink
 using namespace std;
 
 /*************************************************************************
@@ -38,103 +38,107 @@ public:
    Game(Position ptUpperRight) :
       ptUpperRight(ptUpperRight)
    {
+      for (int i = 0; i < NUM_STARS; i++)
+      {
+         Star star = { Position(random(-450, 450), random(-450, 450)), random(0, 255)};
+         stars[i] = star;
+      }
+
       colliders = list<SpaceCollider*>();
       
-       // Sputnik
-       Position sputnikPos = Position();
-       sputnikPos.setMeters(-36515095.13, 21082000.0);
-       Velocity sputnikVel;
-       sputnikVel = Velocity(2050.0, 2684.68);
-       sputnik = Sputnik(sputnikPos, sputnikVel);
+      // Sputnik
+      Position sputnikPos = Position();
+      sputnikPos.setMeters(-36515095.13, 21082000.0);
+      Velocity sputnikVel;
+      sputnikVel = Velocity(2050.0, 2684.68);
+      SpaceCollider* sputnik = new Sputnik(sputnikPos, sputnikVel);
        
-       //First GPS
-       Position gpsPos1 = Position();
-       gpsPos1.setMeters(0, 26560000.0);
-       Velocity gpsVel1;
-       gpsVel1 = Velocity(-3880.0, 0.0);
-       gps1 = GPS(gpsPos1, gpsVel1);
+      //First GPS
+      Position gpsPos1 = Position();
+      gpsPos1.setMeters(0, 26560000.0);
+      Velocity gpsVel1;
+      gpsVel1 = Velocity(-3880.0, 0.0);
+      SpaceCollider* gps1 = new GPS(gpsPos1, gpsVel1);
        
-       //Second GPS
-       Position gpsPos2 = Position();
-       gpsPos2.setMeters(23001634.72, 13280000.0);
-       Velocity gpsVel2;
-       gpsVel2 = Velocity(-1940.00, 3360.18);
-       gps2 = GPS(gpsPos2, gpsVel2);
+      //Second GPS
+      Position gpsPos2 = Position();
+      gpsPos2.setMeters(23001634.72, 13280000.0);
+      Velocity gpsVel2;
+      gpsVel2 = Velocity(-1940.00, 3360.18);
+      SpaceCollider* gps2 = new GPS(gpsPos2, gpsVel2);
        
-       //Third GPS
-       Position gpsPos3 = Position();
-       gpsPos3.setMeters(23001634.72, -13280000.0);
-       Velocity gpsVel3;
-       gpsVel3 = Velocity(1940.00, 3360.18);
-       gps3 = GPS(gpsPos3, gpsVel3);
+      //Third GPS
+      Position gpsPos3 = Position();
+      gpsPos3.setMeters(23001634.72, -13280000.0);
+      Velocity gpsVel3;
+      gpsVel3 = Velocity(1940.00, 3360.18);
+      SpaceCollider* gps3 = new GPS(gpsPos3, gpsVel3);
        
-       //Fourth GPS
-       Position gpsPos4 = Position();
-       gpsPos4.setMeters(0, -26560000.0);
-       Velocity gpsVel4;
-       gpsVel4 = Velocity(3880.0, 0.0);
-       gps4 = GPS(gpsPos4, gpsVel4);
+      //Fourth GPS
+      Position gpsPos4 = Position();
+      gpsPos4.setMeters(0, -26560000.0);
+      Velocity gpsVel4;
+      gpsVel4 = Velocity(3880.0, 0.0);
+      SpaceCollider* gps4 = new GPS(gpsPos4, gpsVel4);
        
-       //Fifth GPS
-       Position gpsPos5 = Position();
-       gpsPos5.setMeters(-23001634.72, -13280000.0);
-       Velocity gpsVel5;
-       gpsVel5 = Velocity(1940.00, -3360.18);
-       gps5 = GPS(gpsPos5, gpsVel5);
+      //Fifth GPS
+      Position gpsPos5 = Position();
+      gpsPos5.setMeters(-23001634.72, -13280000.0);
+      Velocity gpsVel5;
+      gpsVel5 = Velocity(1940.00, -3360.18);
+      SpaceCollider* gps5 = new GPS(gpsPos5, gpsVel5);
        
-       //Sixth GPS
-       Position gpsPos6 = Position();
-       gpsPos6.setMeters(-23001634.72, 13280000.0);
-       Velocity gpsVel6;
-       gpsVel6 = Velocity(-1940.00, -3360.18);
-       gps6 = GPS(gpsPos6, gpsVel6);
+      //Sixth GPS
+      Position gpsPos6 = Position();
+      gpsPos6.setMeters(-23001634.72, 13280000.0);
+      Velocity gpsVel6;
+      gpsVel6 = Velocity(-1940.00, -3360.18);
+      SpaceCollider* gps6 = new GPS(gpsPos6, gpsVel6);
        
        
-       //Hubble
-       Position hubblePos = Position();
-       hubblePos.setMeters(0.0, -42164000.0);
-       Velocity hubbleVel;
-       hubbleVel = Velocity(3100.0, 0.0);
-       hubble = Hubble(hubblePos, hubbleVel);
+      //Hubble
+      Position hubblePos = Position();
+      hubblePos.setMeters(0.0, -42164000.0);
+      Velocity hubbleVel;
+      hubbleVel = Velocity(3100.0, 0.0);
+      SpaceCollider* hubble = new Hubble(hubblePos, hubbleVel);
        
-       //Dragon
-       Position dragonPos = Position();
-       dragonPos.setMeters(0.0, 8000000.0);
-       Velocity dragonVel;
-       dragonVel = Velocity(-7900.0, 0.0);
-       dragon = Dragon(dragonPos, dragonVel);
-       
-       //Starlink
-       Position starlinkPos = Position();
-       starlinkPos.setMeters(0.0, -13020000.0);
-       Velocity starlinkVel;
-       starlinkVel = Velocity(5800.0, 0.0);
-       starlink = StarLink(starlinkPos, starlinkVel);
+      //Dragon
+      Position dragonPos = Position();
+      dragonPos.setMeters(0.0, 8000000.0);
+      Velocity dragonVel;
+      dragonVel = Velocity(-7900.0, 0.0);
+      SpaceCollider* dragon = new Dragon(dragonPos, dragonVel);
+      
+      //Starlink
+      Position starlinkPos = Position();
+      starlinkPos.setMeters(0.0, -13020000.0);
+      Velocity starlinkVel;
+      starlinkVel = Velocity(5800.0, 0.0);
+      SpaceCollider* starlink = new StarLink(starlinkPos, starlinkVel);
        
       Position shipPos = Position();
       shipPos.setPixelsX(-450);
       shipPos.setPixelsY(450);
       Velocity shipVel = Velocity(0, -2000);
       player = Ship(shipPos, shipVel);
-      colliders.push_back(&player);
-      colliders.push_back(&sputnik);
-       colliders.push_back(&hubble);
-       colliders.push_back(&dragon);
-       colliders.push_back(&starlink);
-       
-       colliders.push_back(&gps1);
-       colliders.push_back(&gps2);
-       colliders.push_back(&gps3);
-       colliders.push_back(&gps4);
-       colliders.push_back(&gps5);
-       colliders.push_back(&gps6);
-       
-       
-       
-      totalSeconds = 0;
+      SpaceCollider* shipPtr = &player;
+
+      colliders.push_back(shipPtr);
+      colliders.push_back(sputnik);
+      colliders.push_back(hubble);
+      colliders.push_back(dragon);
+      colliders.push_back(starlink);
+      
+      colliders.push_back(gps1);
+      colliders.push_back(gps2);
+      colliders.push_back(gps3);
+      colliders.push_back(gps4);
+      colliders.push_back(gps5);
+      colliders.push_back(gps6);
+      
 
       angleEarth = Angle(0.0, true);
-      phaseStar = 0;
    }
 
    /************************************************************
@@ -152,6 +156,12 @@ public:
 
 private:
 
+   struct Star
+   {
+      Position pos;
+      unsigned char phase;
+   };
+
    /**********************************************************
    * GAME : HANDLE COLLISIONS
    *   Loops through each item in colliders and checks whether that
@@ -161,10 +171,16 @@ private:
    ***********************************************************/
    void handleCollisions()
    {
-      // Main loop through all colliders (make sure current item isn't dead)
+      Position earthPosition = Position(0.0, 0.0);
+
+      // Main loop through all colliders
       for (auto cIter1 = colliders.begin(); cIter1 != colliders.end(); cIter1++)
       {
          SpaceCollider* collider1 = *cIter1;
+         // Check earth collision first
+         if (computeDistance(collider1->getCenter(), earthPosition) <= (collider1->getRadius() * earthPosition.getZoom() + EARTH_RADIUS))
+            collider1->onCollision(colliders);
+         // If this isn't dead,
          if (!collider1->isDead())
          {
             // inner loop through all colliders (make sure current otherItem isn't dead)
@@ -172,7 +188,7 @@ private:
             {
                SpaceCollider* collider2 = *cIter2;
                // if they collide, do collision work.
-               if (!collider2->isDead() && collider1->isHitBy(collider2))
+               if (!collider1->isDead() && !collider2->isDead() && collider1->isHitBy(collider2))
                {
                   collider1->onCollision(colliders);
                   collider2->onCollision(colliders);
@@ -191,6 +207,10 @@ private:
       }
    }
 
+   /**********************************************************
+   * GAME : HANDLE INPUTS
+   *   Tells the player ship which keys are being pressed.
+   ***********************************************************/
    void handleInputs(const Interface* pUI)
    {
       player.thrustForward(pUI->isDown());
@@ -202,31 +222,33 @@ private:
          player.fire(colliders);
    }
 
-   // TODO: When checking if two things collide, make sure they both aren't dead.
-   // move and rotate everything according to the amount of time that has passed.
+   /**********************************************************
+   * GAME : ADVANCE
+   *   Moves and rotates all the items in colliders. phases up the stars,
+   *   and rotates the earth.
+   ***********************************************************/
    void advance(double elapsedSeconds)
    {
-      totalSeconds += elapsedSeconds;
       // rotate the earth, and advance the star phase
       double rotationAmount = -(2 * PI / SECONDS_PER_DAY) * elapsedSeconds;
       angleEarth.addRadians(rotationAmount);
-      phaseStar++;
 
       // move things
       for (SpaceCollider* collider : colliders)
-      {
          collider->advance(elapsedSeconds);
-      }
+
+      // phase up the stars
+      for (Star star : stars)
+         star.phase++;
    }
 
    void display()
    {
       for(SpaceCollider* collider : colliders)
-      {
          collider->draw();
-      }
       
-      drawStar(ptStar, phaseStar);
+      for (int i = 0; i < NUM_STARS; i++)
+         drawStar(stars[i].pos, stars[i].phase);
 
       // draw the earth
       Position pt = Position(0.0, 0.0);
@@ -236,23 +258,8 @@ private:
    list<SpaceCollider*> colliders;
    Ship player;
     
-    Sputnik sputnik;
-    Hubble hubble;
-    Dragon dragon;
-    StarLink starlink;
-    
-    GPS gps1;
-    GPS gps2;
-    GPS gps3;
-    GPS gps4;
-    GPS gps5;
-    GPS gps6;
-    
-    Position ptStar;
+   Star stars[NUM_STARS];
    Position ptUpperRight;
-
-   unsigned char phaseStar;
-   int totalSeconds;
     
    Angle angleEarth;
 };
