@@ -34,6 +34,7 @@ public:
       ptUpperRight(ptUpperRight)
    {
       colliders = list<SpaceCollider*>();
+
       Position shipPos = Position();
       shipPos.setPixelsX(-450);
       shipPos.setPixelsY(450);
@@ -47,19 +48,58 @@ public:
       phaseStar = 0;
    }
 
+   /************************************************************
+   * GAME : NEXT FRAME
+   *   Handles collisions, responds to inputs, moves the objects,
+   *   and draws the screen
+   *************************************************************/
    void nextFrame(const Interface* pUI)
    {
-      handleCollisions();
       handleInputs(pUI);
       advance(TIME_DILATION / FRAME_RATE);
+      handleCollisions();
       display();
    }
 
 private:
 
+   /**********************************************************
+   * GAME : HANDLE COLLISIONS
+   *   Loops through each item in colliders and checks whether that
+   *   item is sharing space with something else. If it is, tells both
+   *   items to do their collision logic. In a separate loop, it removes
+   *   dead items from the colliders list.
+   ***********************************************************/
    void handleCollisions()
    {
-
+      // Main loop through all colliders (make sure current item isn't dead)
+      for (auto cIter1 = colliders.begin(); cIter1 != colliders.end(); cIter1++)
+      {
+         SpaceCollider* collider1 = *cIter1;
+         if (!collider1->isDead())
+         {
+            // inner loop through all colliders (make sure current otherItem isn't dead)
+            for (auto cIter2 = next(cIter1, 1); cIter2 != colliders.end(); cIter2++)
+            {
+               SpaceCollider* collider2 = *cIter2;
+               // if they collide, do collision work.
+               if (!collider2->isDead() && collider1->isHitBy(collider2))
+               {
+                  collider1->onCollision(colliders);
+                  collider2->onCollision(colliders);
+               }
+            }
+         }
+      }
+      // Second loop through all colliders to remove dead ones.
+      auto cIter = colliders.begin();
+      while (cIter != colliders.end())
+      {
+         if ((*cIter)->isDead())
+              cIter = colliders.erase(cIter);
+         else
+            cIter++;
+      }
    }
 
    void handleInputs(const Interface* pUI)

@@ -13,7 +13,7 @@
 class Ship :  public SpaceCollider
 {
 public:
-   Ship() : SpaceCollider() { engineOn = false; }
+   Ship() : Ship(Position(0.0, 0.0), Velocity(0.0, 0.0)) {}
    Ship(Position pos, Velocity vel) : SpaceCollider(pos, vel) { engineOn = false; }
    virtual void draw() const { drawShip(pos, direction.getRadians(), engineOn); }
    virtual double getRadius() const { return 10.0; }

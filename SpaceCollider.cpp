@@ -55,7 +55,7 @@ void SpaceCollider::onCollision(list<SpaceCollider*>& colliders)
    for (LaunchedObject* lPtr : launchedPieces)
    {
       lPtr->launch(pos, vel);
-      colliders.push_front(lPtr);
+      colliders.push_back(lPtr);
    }
 }
 

@@ -13,10 +13,10 @@
 class TimedObject : public LaunchedObject
 {
 public:
-   TimedObject() : LaunchedObject() { secondsLeft = 0.0; }
-   TimedObject(Position pos, Velocity vel) : LaunchedObject(pos, vel) { secondsLeft = 0.0; }
+   TimedObject() : TimedObject(Angle(0.0)) {}
+   TimedObject(Angle launchDirection) : LaunchedObject(launchDirection) { secondsLeft = 0.0; }
    virtual void advance(double seconds) { secondsLeft -= seconds; SpaceCollider::advance(seconds); };
-   virtual bool isDead() { return destroyed || secondsLeft <= 0; }
+   virtual bool isDead() const { return destroyed || secondsLeft <= 0; }
 protected:
    int secondsLeft;
 };
