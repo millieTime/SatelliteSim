@@ -372,7 +372,6 @@ public:
 
    void testAdvance()
    {
-      return;
       //setup
       PositionEarthUp p = PositionEarthUp();
       VelocityNeg17pt2And25pt3 v = VelocityNeg17pt2And25pt3();
@@ -386,10 +385,10 @@ public:
       //exercise
       s.advance(seconds);
       //verify
-      assert(decimalCloseEnough(s.pos.getMetersX(), -86.0));
-      assert(decimalCloseEnough(s.pos.getMetersY(), 6377758.750625));
-      assert(decimalCloseEnough(s.vel.getDX(), -17.2));
-      assert(decimalCloseEnough(s.vel.getDY(), -23.73325));
+      assert(decimalCloseEnough(s.pos.getMetersX(), -86.00020661));
+      assert(decimalCloseEnough(s.pos.getMetersY(), 6377942.625));
+      assert(decimalCloseEnough(s.vel.getDX(), -17.20016529));
+      assert(decimalCloseEnough(s.vel.getDY(), -23.73347054));
       assert(decimalCloseEnough(s.direction.getRadians(), 1.5));
       //teardown
    }
