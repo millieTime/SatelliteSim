@@ -89,8 +89,11 @@ void SpaceCollider::advance(double seconds)
 {
    // Move this thing!
    Acceleration gravity = getGravity();
-   vel.applyAcceleration(gravity, seconds);
-   pos.applyVelAccel(vel, gravity, seconds);
+   vel.applyAcceleration(gravity, seconds / 2.0);
+   pos.applyVelAccel(vel, gravity, seconds / 2.0);
+   gravity = getGravity();
+   pos.applyVelAccel(vel, gravity, seconds / 2.0);
+   vel.applyAcceleration(gravity, seconds / 2.0);
 
    // And spin
    direction.addRadians(rotationRate * seconds);
