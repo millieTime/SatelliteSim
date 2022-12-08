@@ -99,7 +99,8 @@
       Velocity shipVel = Velocity(0, -2000);
       player = Ship(shipPos, shipVel);
       SpaceCollider* shipPtr = &player;
-
+       
+       
       colliders.push_back(shipPtr);
       colliders.push_back(sputnik);
       colliders.push_back(hubble);
@@ -114,7 +115,6 @@
       colliders.push_back(gps6);
       
 
-      angleEarth = Angle(0.0, true);
    }
 
    /************************************************************
@@ -138,14 +138,13 @@
    ***********************************************************/
    void Game::handleCollisions()
    {
-      Position earthPosition = Position(0.0, 0.0);
 
       // Main loop through all colliders
       for (auto cIter1 = colliders.begin(); cIter1 != colliders.end(); cIter1++)
       {
          SpaceCollider* collider1 = *cIter1;
          // Check earth collision first
-         if (computeDistance(collider1->getCenter(), earthPosition) <= (collider1->getRadius() * earthPosition.getZoom() + EARTH_RADIUS))
+         if (computeDistance(collider1->getCenter(), earth.getPosition()) <= (collider1->getRadius() * earth.getPosition().getZoom() + earth.getRadius()))
             collider1->onCollision(colliders);
          // If this isn't dead,
          if (!collider1->isDead())
@@ -197,8 +196,7 @@
    void Game::advance(double elapsedSeconds)
    {
       // rotate the earth, and advance the star phase
-      double rotationAmount = -(2 * PI / SECONDS_PER_DAY) * elapsedSeconds;
-      angleEarth.addRadians(rotationAmount);
+       earth.rotateEarth(elapsedSeconds);
 
       // move things
       for (SpaceCollider* collider : colliders)
@@ -219,7 +217,6 @@
          collider->draw();
 
       // draw the earth
-      Position pt = Position(0.0, 0.0);
-      drawEarth(pt, angleEarth.getRadians());
+       earth.draw();
    }
 

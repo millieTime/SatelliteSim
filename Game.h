@@ -30,6 +30,7 @@
 #include "Hubble.h"        //Hubble
 #include "Dragon.h"        //Dragon
 #include "StarLink.h"      //Starlink
+#include "Earth.h"         //Earth
 using namespace std;
 
 /*************************************************************************
@@ -85,7 +86,7 @@ private:
    Ship player;
    Star stars[NUM_STARS];
    Position ptUpperRight;
-   Angle angleEarth;
+   Earth earth;
 };
 
 #endif /* Game_h */

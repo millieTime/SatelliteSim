@@ -16,7 +16,7 @@
 class Dragon : public SpaceCollider
 {
 public:
-   Dragon() : Dragon(Position(0.0, 0.0), Velocity(0.0, 0.0)) {}
+   //Dragon non-default constructor
    Dragon(Position p, Velocity v) : SpaceCollider(p, v)
    {
       // 3 piece, 2 frag
@@ -31,13 +31,9 @@ public:
       launchedPieces.push_back(left);
       launchedPieces.push_back(frag2);
    }
-   virtual void draw() const
-   {
-      drawCrewDragon(pos, direction.getRadians());
-   }
+   // Dragon draw
+   virtual void draw() const{drawCrewDragon(pos, direction.getRadians());}
    
-   virtual double getRadius() const
-   {
-      return 3.5;
-   }
+   // Dragon getRadius
+   virtual double getRadius() const{return 3.5;}
 };

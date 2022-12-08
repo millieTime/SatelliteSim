@@ -45,17 +45,16 @@ public:
       setDX(dx + accel.getDDX() * time);
       setDY(dy + accel.getDDY() * time);
    };
-
+   
+   // Add value to velocity
    virtual void addVel(const Velocity& otherVel)
    {
       setDX(dx + otherVel.getDX());
       setDY(dy + otherVel.getDY());
    }
 
-   friend bool operator==(const Velocity& lhs, const Velocity& rhs)
-   {
-      return lhs.dx == rhs.dx && lhs.dy == rhs.dy;
-   }
+   // Isequal sign operator
+   friend bool operator==(const Velocity& lhs, const Velocity& rhs){return lhs.dx == rhs.dx && lhs.dy == rhs.dy;}
 
 protected:
    double dx; // horizontal component
