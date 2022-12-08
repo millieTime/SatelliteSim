@@ -1,13 +1,16 @@
-//
-//  SpaceCollider.cpp
-//  Lab07
-//
-//  Created by Gergo Medveczky and Preston Millward on 11/8/22.
-//
+/***********************************************************************
+ * Source File:
+ *    SpaceCollider
+ * Author:
+ *    Preston Millward and Gergo Medveczky
+ * Summary:
+ *    Implementing functions for SpaceCollider abstract class
+ ************************************************************************/
 
 #include "SpaceCollider.h"
 #include "launchedObject.h"
 
+// Default Constructor for Spacecollider
 SpaceCollider::SpaceCollider()
 {
    pos = Position(0, 0);
@@ -18,6 +21,7 @@ SpaceCollider::SpaceCollider()
    destroyed = false;
 }
 
+//Non-default Constructor for Space collider
 SpaceCollider::SpaceCollider(Position& p, Velocity& v)
 {
    pos = p;

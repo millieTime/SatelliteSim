@@ -2,7 +2,7 @@
  * Header File:
  *    Position Dummy : A dummy for the Position class to be used in testing.
  * Author:
- *    Preston Millward
+ *    Preston Millward and Gergo Medveczky
  * Summary:
  *    The Position class, but all public methods (besides default constructor)
  *    contain assert(false)

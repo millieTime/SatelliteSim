@@ -13,12 +13,16 @@
 class Fragment :public TimedObject
 {
 public:
+    // Default constructor
    Fragment() : Fragment(Angle(0.0)) {}
+    // Non-default constructor with given angle
    Fragment(Angle launchDirection) : TimedObject(launchDirection)
    {
       secondsLeft = random(2.0, 3.0) * TIME_DILATION;
       rotationRate = random(-PI, PI);
    }
+    // Getter for fragment radius
    virtual double getRadius() const { return 1.0; };
+    // Draw Fargment
    virtual void draw() const { drawFragment(pos, direction.getRadians()); };
 };

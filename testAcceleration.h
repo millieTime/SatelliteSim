@@ -2,7 +2,7 @@
  * Header File:
  *    Test Acceleration : Test the Acceleration class
  * Author:
- *    Preston Millward
+ *    Gergo Medveczky and Preston Millward
  * Summary:
  *    All the unit tests for Acceleration
  ************************************************************************/

@@ -2,7 +2,7 @@
  * Source File:
  *    Velocity : Represents a velocity in the orbiter simulation
  * Author:
- *    Preston Millward
+ *    Preston Millward and Gergo Medveczky
  * Summary:
  *    Tracks the components of a 2-dimensional velocity, and provides
  *    a simple way to apply an acceleration over time.

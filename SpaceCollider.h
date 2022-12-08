@@ -1,9 +1,11 @@
-//
-//  SpaceCollider.hpp
-//  Lab07
-//
-//  Created by Gergo Medveczky and Preston Millward on 11/8/22.
-//
+/***********************************************************************
+ * Header File:
+ *    SpaceCollider
+ * Author:
+ *    Preston Millward and Gergo Medveczky
+ * Summary:
+ *    Abstract class defining attributes for children classes
+ ************************************************************************/
 
 #ifndef SpaceCollider_h
 #define SpaceCollider_h
@@ -32,7 +34,9 @@ protected:
    Acceleration getGravity();
     
 public:
+    // Default Constructor
    SpaceCollider();
+    // Non-default COnstructor
    SpaceCollider(Position& p, Velocity& v);
 
    // Returns the Position representing the center of this SpaceCollider.

@@ -1,9 +1,11 @@
-//
-//  Sputnik.hpp
-//  Lab07
-//
-//  Created by Gergo Medveczky on 11/12/22.
-//
+/***********************************************************************
+ * Header File:
+ *    Sputnik
+ * Author:
+ *    Preston Millward and Gergo Medveczky
+ * Summary:
+ *    Sputnik child class
+ ************************************************************************/
 
 #ifndef Sputnik_h
 #define Sputnik_h
@@ -15,10 +17,12 @@ class Sputnik : public SpaceCollider
 private:
     
 public:
+    // Default Constructor for Sputnik
     Sputnik(): SpaceCollider()
     {
         
     }
+    // Non-Default Constructor for Sputnik
     Sputnik(Position p, Velocity v)
     {
         this->pos = p;
@@ -32,11 +36,13 @@ public:
         launchedPieces.push_back(fragment3);
         launchedPieces.push_back(fragment4);
     }
+    // Draw Sputnik
     virtual void draw() const
     {
         drawSputnik(pos, direction.getRadians());
     }
     
+    // Radius Getter for Sputnik
     virtual double getRadius() const
     {
         return 2.0;

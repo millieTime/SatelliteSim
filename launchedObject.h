@@ -2,7 +2,7 @@
  * Header File:
  *    Launched Object : Represents an expelled SpaceCollider in the orbiter simulation
  * Author:
- *    Preston Millward
+ *    Preston Millward and Gergo Medveczky
  * Summary:
  *    Provides a way to easily launch this piece of space debris.
  ************************************************************************/
@@ -14,8 +14,11 @@
 class LaunchedObject : public SpaceCollider
 {
 public:
+    // Default Constructor for Launched Object
    LaunchedObject() : SpaceCollider() {}
+    // Non-default Constructor for Launched Object
    LaunchedObject(Angle launchDirection) : SpaceCollider() { direction = launchDirection; }
+    // Launch after collision with random velocity
    virtual void launch(const Position& p, const Velocity& v)
    {
       // Pieces add anywhere between 5K and 9K m/s in that direction

@@ -2,7 +2,7 @@
  * Header File:
  *    Test Angle : Test the Angle class
  * Author:
- *    Preston Millward
+ *    Preston Millward and Gergo Medveczky
  * Summary:
  *    All the unit tests for Angle. For all one functions under test =)
  ************************************************************************/
