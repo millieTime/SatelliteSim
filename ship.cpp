@@ -2,7 +2,7 @@
  * Source File:
  *    Ship : A player-controlled ship that fires projectiles
  * Author:
- *    Preston Millward
+ *    Preston Millward and Gergo Medveczky
  * Summary:
  *    Is a Space Collider, shoots Bullets, can be controlled by keyboard input.
  ************************************************************************/

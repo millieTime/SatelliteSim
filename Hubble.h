@@ -1,9 +1,11 @@
-//
-//  Hubble.hpp
-//  Lab07
-//
-//  Created by Gergo Medveczky on 11/23/22.
-//
+/***********************************************************************
+ * Header File:
+ *    Hubble: A satellite that orbits the earth geosynchronously
+ * Author:
+ *    Gergo Medveczky and Preston Millward
+ * Summary:
+ *    Is a Space Collider, and breaks into 4 parts.
+ ************************************************************************/
 
 #ifndef Hubble_h
 #define Hubble_h
@@ -19,9 +21,12 @@ class Hubble : public SpaceCollider
 private:
     
 public:
+    // Default Constructor for Hubble
     Hubble(): Hubble(Position(0,0), Velocity(0,0))
     {
     }
+    
+    // Non-Default Constructor for Hubble
     Hubble(Position p, Velocity v) : SpaceCollider(p,v)
     {
         LaunchedObject* telescope = new HubbleTelescope(Angle(PI / 2.0 ));
@@ -35,11 +40,14 @@ public:
         launchedPieces.push_back(rightPart);
     
     }
+    
+    // Draw Hubble
     virtual void draw() const
     {
         drawHubble(pos, direction.getRadians());
     }
     
+    // Radius getter for Hubble
     virtual double getRadius() const
     {
         return 5.0;

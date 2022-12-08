@@ -16,7 +16,9 @@
 class GPS : public SpaceCollider
 {
 public:
+    // Default Constructor for GPS
     GPS(): GPS(Position(0.0, 0.0), Velocity(0.0, 0.0)) {}
+    // Non-Default Constructor for GPS
     GPS(Position p, Velocity v) : SpaceCollider(p, v)
     {
        LaunchedObject* center = new GPSCenter(Angle(0.0));
@@ -26,12 +28,14 @@ public:
        launchedPieces.push_back(right);
        launchedPieces.push_back(left);
     }
-
+    
+    // Draw GPS
     virtual void draw() const
     {
         drawGPS(pos, direction.getRadians());
     }
     
+    // Radius Getter for GPS
     virtual double getRadius() const
     {
         return 6.0;

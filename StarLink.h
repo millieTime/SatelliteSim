@@ -15,7 +15,9 @@
 class StarLink : public SpaceCollider
 {
 public:
+    // Default Constructor
     StarLink(): StarLink(Position(0.0, 0.0), Velocity(0.0, 0.0)) { }
+    // Non-Default Constructor
     StarLink(Position p, Velocity v) : SpaceCollider(p, v)
     {
        LaunchedObject* SLArray = new StarlinkArray(Angle(0.0));
@@ -23,11 +25,13 @@ public:
        launchedPieces.push_back(SLArray);
        launchedPieces.push_back(SLBody);
     }
+    // Draw StarLink
     virtual void draw() const
     {
         drawStarlink(pos, direction.getRadians());
     }
     
+    // Radius Getter for Starlink
     virtual double getRadius() const
     {
         return 3.0;

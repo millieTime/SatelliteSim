@@ -1,9 +1,11 @@
-//
-//  HubbleLeft.hpp
-//  Lab07
-//
-//  Created by Gergo Medveczky on 11/23/22.
-//
+/***********************************************************************
+ * Header File:
+ *    Hubble Left-Part: A part of hubble after collision
+ * Author:
+ *    Gergo Medveczky and Preston Millward
+ * Summary:
+ *    Is a Space Collider, and breaks into 2 fragments.
+ ************************************************************************/
 
 #ifndef HubbleLeft_h
 #define HubbleLeft_h
@@ -15,10 +17,13 @@ class HubbleLeft : public LaunchedObject
 private:
     
 public:
+    // Default Constructor for HubbleLeft
     HubbleLeft(): HubbleLeft(Angle(0.0))
     {
         
     }
+    
+    // Non-Default Constructor for HubbleLeft
     HubbleLeft(Angle angle) : LaunchedObject(angle)
     {
         LaunchedObject* fragment1 = new Fragment(6.28319);
@@ -26,29 +31,18 @@ public:
         launchedPieces.push_back(fragment1);
         launchedPieces.push_back(fragment2);
     }
+    
+    // Draw HubbleLeft
     virtual void draw() const
     {
         drawHubbleLeft(pos, direction.getRadians());
     }
     
+    // Radius Getter for HubbleLeft
     virtual double getRadius() const
     {
         return 4.0;
     }
-    virtual void advance(double seconds)
-    {
-        SpaceCollider::advance(seconds);
-    }
-    virtual void onCollision(list<SpaceCollider*>& colliders)
-    {
-        SpaceCollider::onCollision(colliders);
-    }
-    virtual bool isHitBy(const SpaceCollider* otherColObj) const
-    {
-        return SpaceCollider::isHitBy(otherColObj);
-    }
-    virtual bool isDead() const { return SpaceCollider::isDead(); }
-    
     
     
 };

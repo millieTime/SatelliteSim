@@ -1,9 +1,11 @@
-//
-//  TestOrbitSimulator.h
-//  Lab07
-//
-//  Created by Gergo Medveczky and Preston Millward on 11/8/22.
-//
+/***********************************************************************
+ * Header File:
+ *    Test SpaceCollider : Test the SpaceCollider Abstract class
+ * Author:
+ *    Preston Millward and Gergo Medveczky
+ * Summary:
+ *    All the unit tests for SpaceCollider. For all one functions under test =)
+ ************************************************************************/
 
 #pragma once
 #include "sampleSpaceCollider.h"
