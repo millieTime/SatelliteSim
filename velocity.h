@@ -9,7 +9,6 @@
  ************************************************************************/
 
 #pragma once
-
 #include "acceleration.h"
 #include "angle.h"
 
@@ -46,6 +45,7 @@ public:
       setDY(dy + accel.getDDY() * time);
    };
 
+   // Add another velocity to this velocity
    virtual void addVel(const Velocity& otherVel)
    {
       setDX(dx + otherVel.getDX());

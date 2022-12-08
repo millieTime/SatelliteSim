@@ -26,7 +26,7 @@ public:
     }
     
     // Non-Default Constructor for computer
-    HubbleComputer(Angle angle) : LaunchedObject(angle)
+    HubbleComputer(const Angle& angle) : LaunchedObject(angle)
     {
         LaunchedObject* fragment1 = new Fragment(PI);
         LaunchedObject* fragment2 = new Fragment(2* PI);

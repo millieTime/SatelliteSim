@@ -27,7 +27,7 @@ public:
     }
     
     // Non-Default Constructor for Hubble
-    Hubble(Position p, Velocity v) : SpaceCollider(p,v)
+    Hubble(const Position& p, const Velocity& v) : SpaceCollider(p,v)
     {
         LaunchedObject* telescope = new HubbleTelescope(Angle(PI / 2.0 ));
         LaunchedObject* computer = new HubbleComputer(Angle(PI));

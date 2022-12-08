@@ -1,6 +1,6 @@
 /***********************************************************************
  * Source File:
- *    Ship : A player-controlled ship that fires projectiles
+ *    Ship : A player-controlled ship that fires bullets
  * Author:
  *    Preston Millward and Gergo Medveczky
  * Summary:
@@ -16,18 +16,16 @@
   *****************************************/
 void Ship::advance(double seconds)
 {
-   // Our parent class handles basic advancing just fine.
-   SpaceCollider::advance(seconds);
-   
    // All this needs to do is apply acceleration from the engine.
    if (engineOn)
    {
-      Acceleration engineAcceleration = Acceleration(direction, 30.0);
-      Velocity engineVel = Velocity(0, 0);
-      engineVel.applyAcceleration(engineAcceleration, seconds);
+      Acceleration engineAcceleration = Acceleration(direction, SHIP_THRUST);
       vel.applyAcceleration(engineAcceleration, seconds);
-      pos.applyVelAccel(engineVel, engineAcceleration, seconds);
+      pos.applyVelAccel(Velocity(0, 0), engineAcceleration, seconds);
    }
+
+   // Our parent class handles basic advancing just fine.
+   SpaceCollider::advance(seconds);
 }
 
 /******************************************

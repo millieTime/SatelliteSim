@@ -10,13 +10,14 @@
 #pragma once
 #include "SpaceCollider.h"
 #include "bullet.h"
+
 class Ship :  public SpaceCollider
 {
 public:
     // Default Constructor for Ship
    Ship() : Ship(Position(0.0, 0.0), Velocity(0.0, 0.0)) {}
     // Non-Default Constructor for Ship
-   Ship(Position pos, Velocity vel) : SpaceCollider(pos, vel) { engineOn = false; }
+   Ship(const Position& pos, const Velocity& vel) : SpaceCollider(pos, vel) { engineOn = false; }
     // Draw Ship
    virtual void draw() const { drawShip(pos, direction.getRadians(), engineOn); }
     // Getter for Ship Radius
@@ -34,4 +35,3 @@ public:
 private:
    bool engineOn;
 };
-

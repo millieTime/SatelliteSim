@@ -15,7 +15,7 @@ class StarlinkArray : public LaunchedObject
 {
 public:
    StarlinkArray() : StarlinkArray(Angle(0.0)) {}
-   StarlinkArray(Angle launchDirection) : LaunchedObject(launchDirection)
+   StarlinkArray(const Angle& launchDirection) : LaunchedObject(launchDirection)
    {
       launchedPieces = list<LaunchedObject*>();
       for (int i = 0; i < 3; i++)

@@ -18,7 +18,7 @@ public:
     // Default Constructor
     StarLink(): StarLink(Position(0.0, 0.0), Velocity(0.0, 0.0)) { }
     // Non-Default Constructor
-    StarLink(Position p, Velocity v) : SpaceCollider(p, v)
+    StarLink(const Position& p, const Velocity& v) : SpaceCollider(p, v)
     {
        LaunchedObject* SLArray = new StarlinkArray(Angle(0.0));
        LaunchedObject* SLBody = new StarlinkBody(Angle(PI));

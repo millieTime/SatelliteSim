@@ -24,10 +24,10 @@ public:
     }
     
     // Non-default constructor for hubbleRight
-    HubbleRight(Angle angle) : LaunchedObject(angle)
+    HubbleRight(const Angle& angle) : LaunchedObject(angle)
     {
-        LaunchedObject* fragment1 = new Fragment(6.28319);
-        LaunchedObject* fragment2 = new Fragment(2);
+        LaunchedObject* fragment1 = new Fragment(2*PI);
+        LaunchedObject* fragment2 = new Fragment(PI);
         launchedPieces.push_back(fragment1);
         launchedPieces.push_back(fragment2);
     }

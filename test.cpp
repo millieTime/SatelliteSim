@@ -2,7 +2,7 @@
  * Source File:
  *    Test : Test runner
  * Author:
- *    Br. Helfrich & Preston Millward
+ *    Preston Millward & Gergo Medveczky
  * Summary:
  *    The test runner for all the unit tests
  ************************************************************************/

@@ -17,7 +17,7 @@ class Dragon : public SpaceCollider
 {
 public:
    Dragon() : Dragon(Position(0.0, 0.0), Velocity(0.0, 0.0)) {}
-   Dragon(Position p, Velocity v) : SpaceCollider(p, v)
+   Dragon(const Position& p, const Velocity& v) : SpaceCollider(p, v)
    {
       // 3 piece, 2 frag
       LaunchedObject* center = new DragonCenter(Angle(0.0));

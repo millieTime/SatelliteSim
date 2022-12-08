@@ -4,11 +4,11 @@
  * Author:
  *    Preston Millward and Gergo Medveczky
  * Summary:
- *    Abstract class defining attributes for children classes
+ *    An object floating in space, subject to gravity, that can hit and be hit.
  ************************************************************************/
 
-#ifndef SpaceCollider_h
-#define SpaceCollider_h
+#pragma once
+
 #include "angle.h"
 #include "position.h"
 #include "velocity.h"
@@ -22,22 +22,13 @@ class TestSpaceCollider;
 class LaunchedObject;
 
 class SpaceCollider
-{
-protected:
-   friend class TestSpaceCollider;
-   Position pos;
-   Velocity vel;
-   Angle direction;
-   double rotationRate;
-   bool destroyed;
-   list<LaunchedObject*> launchedPieces;
-   Acceleration getGravity();
-    
+{   
 public:
     // Default Constructor
-   SpaceCollider();
-    // Non-default COnstructor
-   SpaceCollider(Position& p, Velocity& v);
+   SpaceCollider() : SpaceCollider(Position(0.0, 0.0), Velocity(0.0, 0.0)) {};
+
+    // Non-default Constructor
+   SpaceCollider(const Position& p, const Velocity& v);
 
    // Returns the Position representing the center of this SpaceCollider.
    Position getCenter() const { return pos; };
@@ -70,5 +61,14 @@ public:
       }
       return false;
    }
+
+protected:
+   friend class TestSpaceCollider;
+   Position pos;
+   Velocity vel;
+   Angle direction;
+   double rotationRate;
+   bool destroyed;
+   list<LaunchedObject*> launchedPieces;
+   Acceleration getGravity();
 };
-#endif /* SpaceCollider_h */
