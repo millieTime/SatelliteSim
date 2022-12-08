@@ -15,7 +15,7 @@ class DragonLeft : public LaunchedObject
 {
 public:
    DragonLeft() : DragonLeft(Angle(0.0)) {}
-   DragonLeft(Angle launchDirection) : LaunchedObject(launchDirection)
+   DragonLeft(const Angle& launchDirection) : LaunchedObject(launchDirection)
    {
       launchedPieces = list<LaunchedObject*>();
       for (int i = 0; i < 2; i++)

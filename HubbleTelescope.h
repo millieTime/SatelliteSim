@@ -19,7 +19,7 @@ private:
     
 public:
    // Non-Default Constructor for Telescope
-   HubbleTelescope(Angle angle) : LaunchedObject(angle)
+   HubbleTelescope(const Angle& angle) : LaunchedObject(angle)
    {
       LaunchedObject* fragment1 = new Fragment(PI / 2.0);
       LaunchedObject* fragment2 = new Fragment(2.0* PI);
@@ -29,7 +29,7 @@ public:
       launchedPieces.push_back(fragment2);
       launchedPieces.push_back(fragment3);
    }
-    
+
    // Draw Telescope
    virtual void draw() const{drawHubbleTelescope(pos, direction.getRadians());}
     

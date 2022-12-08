@@ -14,7 +14,7 @@ class Fragment :public TimedObject
 {
 public:
     // Non-default constructor with given angle
-   Fragment(Angle &launchDirection) : TimedObject(launchDirection)
+   Fragment(const Angle& launchDirection) : TimedObject(launchDirection)
    {
       secondsLeft = random(2.0, 3.0) * TIME_DILATION;
       rotationRate = random(-PI, PI);

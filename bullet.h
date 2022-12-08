@@ -14,7 +14,7 @@ class Bullet : public TimedObject
 {
 public:
    Bullet() : Bullet(Angle(0.0)) {}
-   Bullet(Angle launchDirection) : TimedObject(launchDirection) { secondsLeft = 2 * TIME_DILATION; }
+   Bullet(const Angle& launchDirection) : TimedObject(launchDirection) { secondsLeft = 2 * TIME_DILATION; }
    virtual double getRadius() const { return 0.5; };
    virtual void draw() const { drawProjectile(pos); };
    virtual void launch(const Position& p, const Velocity& v)

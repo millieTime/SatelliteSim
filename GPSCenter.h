@@ -15,7 +15,7 @@ class GPSCenter : public LaunchedObject
 {
 public:
    GPSCenter() : GPSCenter(Angle(0.0)) {}
-   GPSCenter(Angle launchDirection) : LaunchedObject(launchDirection)
+   GPSCenter(const Angle& launchDirection) : LaunchedObject(launchDirection)
    {
       launchedPieces = list<LaunchedObject*>();
       for (int i = 0; i < 3; i++)

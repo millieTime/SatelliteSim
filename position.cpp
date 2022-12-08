@@ -2,7 +2,7 @@
  * Source File:
  *    Point : The representation of a position on the screen
  * Author:
- *    Br. Helfrich
+ *    Br. Helfrich, Preston Millward, and Gergo Medveczky
  * Summary:
  *    Everything we need to know about a location on the screen.
  ************************************************************************/

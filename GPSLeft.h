@@ -15,7 +15,7 @@ class GPSLeft : public LaunchedObject
 {
 public:
    GPSLeft() : GPSLeft(Angle(0.0)) {}
-   GPSLeft(Angle launchDirection) : LaunchedObject(launchDirection)
+   GPSLeft(const Angle& launchDirection) : LaunchedObject(launchDirection)
    {
       launchedPieces = list<LaunchedObject*>();
       for (int i = 0; i < 3; i++)

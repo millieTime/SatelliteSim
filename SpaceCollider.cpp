@@ -4,25 +4,14 @@
  * Author:
  *    Preston Millward and Gergo Medveczky
  * Summary:
- *    Implementing functions for SpaceCollider abstract class
+ *    An object floating in space, subject to gravity, that can hit and be hit.
  ************************************************************************/
 
 #include "SpaceCollider.h"
 #include "launchedObject.h"
 
-// Default Constructor for Spacecollider
-SpaceCollider::SpaceCollider()
-{
-   pos = Position(0, 0);
-   vel = Velocity(0, 0);
-   direction = Angle(0);
-   rotationRate = 0.0;
-   launchedPieces = list<LaunchedObject*>();
-   destroyed = false;
-}
-
 //Non-default Constructor for Space collider
-SpaceCollider::SpaceCollider(Position& p, Velocity& v)
+SpaceCollider::SpaceCollider(const Position& p, const Velocity& v)
 {
    pos = p;
    vel = v;
@@ -33,7 +22,7 @@ SpaceCollider::SpaceCollider(Position& p, Velocity& v)
 }
 
 /*********************************************
-* SPACE COLLIDER : COLLIDES WITH
+* SPACE COLLIDER : IS HIT BY
 *    Determines whether this Space Collider intersects
 *    with another Space Collider.
 *    Compares the distance between the two to the sum
@@ -88,17 +77,21 @@ Acceleration SpaceCollider::getGravity()
 * SPACE COLLIDER : ADVANCE
 *    Handles the logic for moving and rotating
 *    this SpaceCollider given an elapsed time.
+*    Uses vt = v0 + a*t and pt = p0 + v*t + .5*a*t*t
 **********************************************/
 void SpaceCollider::advance(double seconds)
 {
-   // Move this thing!
+   // To add accuracy, calculate two movements instead of one.
+   // This first part will undershoot a bit.
    Acceleration gravity = getGravity();
    vel.applyAcceleration(gravity, seconds / 2.0);
    pos.applyVelAccel(vel, gravity, seconds / 2.0);
+
+   // And this second part overshoots a bit.
    gravity = getGravity();
    pos.applyVelAccel(vel, gravity, seconds / 2.0);
    vel.applyAcceleration(gravity, seconds / 2.0);
 
-   // And spin
+   // Spin
    direction.addRadians(rotationRate * seconds);
 }

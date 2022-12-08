@@ -17,7 +17,7 @@ class Sputnik : public SpaceCollider
 private:
 public:
    // Non-Default Constructor for Sputnik
-   Sputnik(Position p, Velocity v)
+   Sputnik(const Position& p, const Velocity& v)
    {
        
       this->pos = p;

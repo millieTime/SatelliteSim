@@ -9,7 +9,6 @@
  ************************************************************************/
 
 #pragma once
-
 #include "acceleration.h"
 #include "angle.h"
 
@@ -26,7 +25,7 @@ public:
    // Construct from components
    Velocity(double dx, double dy) : dx(dx), dy(dy) { }
    // Construct from angle and magnitude
-   Velocity(Angle& angle, double mag);
+   Velocity(const Angle& angle, double mag);
    // Construct from another Velocity
    Velocity& operator=(const Velocity& otherVel);
 
@@ -45,8 +44,8 @@ public:
       setDX(dx + accel.getDDX() * time);
       setDY(dy + accel.getDDY() * time);
    };
-   
-   // Add value to velocity
+
+   // Add another velocity to this velocity
    virtual void addVel(const Velocity& otherVel)
    {
       setDX(dx + otherVel.getDX());

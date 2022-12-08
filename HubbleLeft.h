@@ -18,7 +18,7 @@ private:
     
 public:
    // Non-Default Constructor for HubbleLeft
-   HubbleLeft(Angle angle) : LaunchedObject(angle)
+   HubbleLeft(const Angle& angle) : LaunchedObject(angle)
    {
       LaunchedObject* fragment1 = new Fragment(6.28319);
       LaunchedObject* fragment2 = new Fragment(2);
