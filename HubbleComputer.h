@@ -19,33 +19,21 @@ class HubbleComputer : public LaunchedObject
 private:
     
 public:
-    // Default Constructor for computer
-    HubbleComputer(): HubbleComputer(Angle(0.0))
-    {
-        
-    }
-    
-    // Non-Default Constructor for computer
-    HubbleComputer(const Angle& angle) : LaunchedObject(angle)
-    {
-        LaunchedObject* fragment1 = new Fragment(PI);
-        LaunchedObject* fragment2 = new Fragment(2* PI);
+   // Non-Default Constructor for computer
+   HubbleComputer(const Angle& angle) : LaunchedObject(angle)
+   {
+      LaunchedObject* fragment1 = new Fragment(PI);
+      LaunchedObject* fragment2 = new Fragment(2* PI);
 
-        launchedPieces.push_back(fragment1);
-        launchedPieces.push_back(fragment2);
-    }
+      launchedPieces.push_back(fragment1);
+      launchedPieces.push_back(fragment2);
+   }
     
-    // Draw computer
-    virtual void draw() const
-    {
-        drawHubbleComputer(pos, direction.getRadians());
-    }
+   // Draw computer
+   virtual void draw() const{drawHubbleComputer(pos, direction.getRadians());}
     
-    // Radius Getter for Computer
-    virtual double getRadius() const
-    {
-        return 3.5;
-    }
+   // Radius Getter for Computer
+   virtual double getRadius() const{return 3.5;}
 };
 
 #endif /* HubbleComputer_h */

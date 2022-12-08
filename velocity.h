@@ -25,7 +25,7 @@ public:
    // Construct from components
    Velocity(double dx, double dy) : dx(dx), dy(dy) { }
    // Construct from angle and magnitude
-   Velocity(Angle& angle, double mag);
+   Velocity(const Angle& angle, double mag);
    // Construct from another Velocity
    Velocity& operator=(const Velocity& otherVel);
 
@@ -52,10 +52,8 @@ public:
       setDY(dy + otherVel.getDY());
    }
 
-   friend bool operator==(const Velocity& lhs, const Velocity& rhs)
-   {
-      return lhs.dx == rhs.dx && lhs.dy == rhs.dy;
-   }
+   // Isequal sign operator
+   friend bool operator==(const Velocity& lhs, const Velocity& rhs){return lhs.dx == rhs.dx && lhs.dy == rhs.dy;}
 
 protected:
    double dx; // horizontal component

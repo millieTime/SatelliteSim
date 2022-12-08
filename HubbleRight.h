@@ -17,36 +17,20 @@ class HubbleRight : public LaunchedObject
 private:
     
 public:
-    // Default Constructor for HubbleRight
-    HubbleRight(): HubbleRight(Angle(0.0))
-    {
-        
-    }
+   // Non-Default Constructor for HubbleRight
+   HubbleRight(const Angle& angle) : LaunchedObject(angle)
+   {
+      LaunchedObject* fragment1 = new Fragment(6.28319);
+      LaunchedObject* fragment2 = new Fragment(2);
+      launchedPieces.push_back(fragment1);
+      launchedPieces.push_back(fragment2);
+   }
     
-    // Non-default constructor for hubbleRight
-    HubbleRight(const Angle& angle) : LaunchedObject(angle)
-    {
-        LaunchedObject* fragment1 = new Fragment(2*PI);
-        LaunchedObject* fragment2 = new Fragment(PI);
-        launchedPieces.push_back(fragment1);
-        launchedPieces.push_back(fragment2);
-    }
+   // Draw HubbleRight
+   virtual void draw() const{drawHubbleRight(pos, direction.getRadians());}
     
-    // Draw hubbleRight
-    virtual void draw() const
-    {
-        drawHubbleRight(pos, direction.getRadians());
-    }
-    
-    // Radius getter for hubbleright
-    virtual double getRadius() const
-    {
-        return 4.0;
-    }
-    
-    
+   // Radius Getter for HubbleRight
+   virtual double getRadius() const{return 4.0;}
 };
-
-
 
 #endif /* HubbleRight_h */

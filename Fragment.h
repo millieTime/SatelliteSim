@@ -13,8 +13,6 @@
 class Fragment :public TimedObject
 {
 public:
-    // Default constructor
-   Fragment() : Fragment(Angle(0.0)) {}
     // Non-default constructor with given angle
    Fragment(const Angle& launchDirection) : TimedObject(launchDirection)
    {
