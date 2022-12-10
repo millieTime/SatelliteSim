@@ -35,6 +35,8 @@ void Ship::advance(double seconds)
  *****************************************/
 void Ship::fire(list<SpaceCollider*>& colliders) const
 {
+   if (destroyed)
+      return;
    Bullet* b = new Bullet(direction);
    b->launch(pos, vel);
    colliders.push_back(b);

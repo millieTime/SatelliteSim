@@ -12,13 +12,8 @@
 #include "position.h"
 #include "constants.h"
 
-#include <stdio.h>
 class Earth
 {
-private:
-   Position pos;
-   Angle angle;
-    
 public:
    // Default Constructor for Hubble
    Earth()
@@ -37,6 +32,10 @@ public:
       double rotationAmount = -(2 * PI / SECONDS_PER_DAY) * elapsedSeconds;
       angle.addRadians(rotationAmount);
    }
+
+private:
+   Position pos;
+   Angle angle;
 };
 
 #endif /* Earth_h */
